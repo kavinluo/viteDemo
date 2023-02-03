@@ -1,0 +1,22 @@
+.editForm {
+    .el-date-editor.el-input {
+        width: 100%;
+    }
+    .el-select {
+        width: 100%;
+        .el-input {
+            width: 100%;
+        }
+    }
+}
+.table-back-header{
+    .avatar-uploader-icon{
+        height: 176px
+    }
+    .userAvatarBox{
+        .userAvatarImg{
+            width: 132px;
+            height: 176px
+        }
+    }
+}

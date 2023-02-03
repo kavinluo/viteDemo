@@ -1,0 +1,1143 @@
+@charset "utf-8";
+
+.ivu-modal-header .header {
+  color: #373d41;
+  cursor: move;
+}
+
+.ivu-modal-header,
+.el-message-box__header {
+
+}
+
+//隐藏  防止一个input标签回车默认提交
+.hidden {
+  display: none;
+}
+
+.lose-margin {
+  margin-left: -25px;
+}
+
+.pointer .cell {
+  cursor: pointer;
+}
+
+//table适应高度
+.table-head-content {
+  position: relative;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+}
+
+.table-content {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+.in-and-out-content {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 0;
+  bottom: 0;
+  overflow: auto
+}
+
+//选择栏目
+.select-column {
+  height: 500px
+}
+
+//上传附件查看
+.uploadShow .el-upload-list__item-status-label {
+  display: none;
+}
+
+.uploadShow {
+  margin-top: -40px;
+  overflow: hidden;
+}
+
+//查看照片墙
+.uploadShow .el-upload--picture-card {
+  background-color: inherit;
+  border: none;
+  display: none;
+}
+
+.picture-card {
+  margin-top: 0;
+}
+
+//投票确定按钮
+.OrganizationaVoting {
+  float: left;
+  margin: 0 -150px 0 150px;
+}
+
+//步骤条样式设置
+.el-steps .step {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  z-index: 10;
+  zoom: 1;
+  left: 30px;
+  opacity: 0;
+}
+
+//表格的标题
+.table-headline {
+  font: bold 16px '微软雅黑';
+}
+
+//表格浅灰色背景
+.tablee-back-bac {
+  border: solid 1px #dddddd;
+  padding: 5px 0;
+  line-height: 100%;
+}
+
+.table-back-one {
+  @extend .tablee-back-bac;
+  border-bottom: none;
+  background-color: #fcfcfc;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.table-back-header {
+  @extend .tablee-back-bac;
+  background-color: #fcfcfc;
+  height: 188px;
+  overflow: hidden;
+  padding: 5px 0;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.table-back-one-d {
+  @extend .tablee-back-bac;
+  background-color: #fcfcfc;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.table-back-two {
+  @extend .tablee-back-bac;
+  border-bottom: none;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.table-back-two-d {
+  @extend .tablee-back-bac;
+
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+//加粗
+.feildFontweight {
+  font-weight: bold;
+}
+
+.showWrapper {
+  height: 100%;
+  padding: 20px;
+  border: 1px solid #eee;
+}
+
+//验证时提示信息不被遮挡
+.el-form-item__error {
+  z-index: 1;
+}
+
+//表格下划线
+.underline {
+  text-align: center;
+  display: inline-block;
+  width: 30px;
+  border-bottom: 1px solid;
+}
+
+//右侧边框
+.table-dividing {
+  border-right: solid 1px #dddddd;
+}
+
+//单选上下布局边距
+.grid-content-ptop {
+  padding-top: 10px;
+}
+
+.user-name {
+  font: bold 14px '微软雅黑';
+  line-height: inherit;
+}
+
+//查看信息文本宽度
+.text-w {
+  width: 75px;
+}
+
+.text-w2 {
+  min-height: 40px;
+  width: 75px;
+  text-align: right;
+  padding-right: 10px;
+  line-height: 40px;
+}
+
+//查看信息字体
+.show-count {
+  font: bold 14px '微软雅黑';
+}
+
+//提交按钮距离上面文本高度
+.but-space {
+  margin-top: 36px
+}
+
+//fieldse
+.el-form fieldset {
+  border: 1px solid silver;
+  border-radius: 4px;
+  padding: 15px 10px;
+}
+
+//input宽
+.el-form-item .input-w {
+  width: 120px;
+}
+
+//查看页面
+.view {
+  font: 14px 'Microsoft YaHei';
+}
+
+.lose-margin2 {
+  padding-bottom: 30px;
+}
+
+
+/*移除弹窗样式*/
+
+.remove {
+  padding-left: 56px;
+  height: 100px;
+  font: 18px 'Microsoft YaHei';
+  line-height: 100px;
+}
+
+//上部 新建 删除和table的距离
+.add-remove {
+  margin-bottom: 20px;
+}
+
+//取消地图模态框的固定定位，时点击获取地址信息可用，不会发生偏移
+.checkLocation .ivu-modal-wrap {
+  position: absolute;
+}
+
+.el-message-box__title {
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.modal {
+  .header {
+    height: 22px;
+    font-size: 18px;
+    color: #373d41;
+    line-height: 22px;
+  }
+}
+
+
+/*垂直居中*/
+
+
+/*.vertical-center-modal{
+
+.vertical-center-modal{
+
+/*.vertical-center-modal{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ivu-modal{
+    top: 0;
+  }
+
+}*/
+
+
+/**/
+
+.modal-show {
+  font: 16px 'Microsoft YaHei';
+  padding: 0 50px;
+
+  .headline-wrap {
+    margin: 30px 0 70px;
+  }
+
+  .headline {
+    height: 60px;
+    font: bold 18px 'Microsoft YaHei';
+    line-height: 50px;
+    border-bottom: 4px solid #6d8aab;
+    margin-bottom: 22px;
+  }
+
+  .daily-icon {
+    position: relative;
+    right: 18px;
+    top: 4px;
+    width: 38px;
+    height: 48px;
+    text-align: center;
+    font: bold 20px 'Microsoft YaHei';
+    color: #277dfe;
+    line-height: 35px;
+    background: url("./images/daily-icon.png") no-repeat;
+  }
+
+  .el-row {
+    height: 40px;
+  }
+
+  p {
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .name {
+    width: 130px;
+    padding: 0 27px;
+    vertical-align: baseline;
+  }
+
+  .Case-study {
+    padding: 0 27px;
+    vertical-align: baseline;
+  }
+
+  .awards {
+    text-align: center;
+    vertical-align: baseline;
+  }
+
+  .backgrd-one {
+    background-color: #fcfcfc;
+    border: solid 1px #dddddd;
+  }
+
+  .backgrd-one2 {
+    @extend .backgrd-one;
+    border-bottom: none;
+  }
+
+  .backgrd-two {
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+  }
+
+  .backgrd-two2 {
+    @extend .backgrd-two;
+    border-bottom: none;
+  }
+
+  .audit {
+    color: #277dfe;
+  }
+
+  .audit-text {
+    font: bold 18px 'Microsoft YaHei';
+    color: #277dfe;
+  }
+
+  .headline2 {
+    border-bottom: 4px solid #277dfe;
+  }
+}
+
+//查看
+.leaveManagement-show {
+  font: 14px 'Microsoft YaHei ';
+
+  .qjxx {
+    padding: 30px 0 65px;
+    margin-bottom: 84px;
+  }
+
+  .center {
+    line-height: 50px;
+  }
+
+  .date {
+    line-height: 25px;
+  }
+
+  .date .countDate {
+    display: inline-block;
+    width: 70px;
+    text-align: center;
+    border-bottom: 1px solid #E3E8EE;
+  }
+
+  .fieldset {
+    margin-top: 50px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+  }
+
+  .fieldset-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #373d41;
+  }
+
+  .name {
+    width: 85px;
+  }
+
+  .border {
+    display: inline-block;
+    width: 40px;
+    height: 25px;
+    padding: 0 5px;
+    text-align: center;
+    border-bottom: 1px solid #373d41;
+    line-height: 25px;
+  }
+
+  .shiy-text {
+    float: left;
+  }
+
+  .shiy {
+    padding: 5px;
+    margin: 10px 0 0 85px;
+    height: 200px;
+    border: 1px solid #E3E8EE;
+    line-height: 16px;
+  }
+
+  .step {
+    margin-bottom: 30px;
+  }
+
+  .btn {
+    text-align: right;
+  }
+
+  .shxx {
+    padding: 30px 0 35px;
+    margin-bottom: 40px;
+  }
+}
+
+.volunteerActivity_view {
+  padding: 39px;
+
+  legend {
+    margin: 0 20px;
+  }
+
+  .headline {
+    font: bold 18px 'Microsoft YaHei';
+    color: #277dfe;
+
+    .headline-text {
+      display: inline-block;
+      margin-bottom: 6px;
+      font-size: 30px;
+      vertical-align: middle;
+    }
+  }
+
+  .content-wrap {
+    margin-bottom: 48px;
+
+    .content {
+      font: 16px 'Microsoft YaHei';
+      margin: 0 0 0 4px;
+      text-indent: 2em;
+      padding: 10px 0;
+    }
+  }
+}
+
+//日常管理-惩奖
+.practiceRecords-view {
+  .headline {
+    height: 70px;
+    font: bold 18px 'Microsoft YaHei';
+    color: #373d41;
+    text-align: center;
+    line-height: 70px;
+    margin-bottom: 50px;
+  }
+
+  .division {
+    margin: 40px 0;
+  }
+}
+
+//系统管理-权限管理
+.authorityManagement {
+  padding: 20px;
+}
+
+
+/*---列表上方按钮及查询布局---*/
+
+.listUpAreaBox {
+  overflow: hidden;
+  height: 40px;
+}
+
+.listUpArea-menus {
+  width: 60%;
+  float: left;
+}
+
+.listUpArea-search {
+  width: 39%;
+  float: right;
+}
+
+.listUpArea-searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.listUpArea-searchLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 80px;
+
+}
+
+.listUpArea-moreSearch {
+  width: 80px;
+  float: right;
+  text-align: center;
+}
+
+.listUpArea-moreSearchBox {
+  height: 100px;
+}
+
+
+/*---权限管理---*/
+
+.itemLayout {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.userName {
+  margin: 5px 2px;
+  min-width: 90px;
+  padding: 5px;
+  overflow: hidden;
+  border: 1px solid #c1c1c1;
+  background: #f5f5f5;
+  display: inline-block;
+}
+
+.userName .nameText {
+  margin: 0 10px;
+}
+
+.funMeus {
+  height: 300px;
+}
+
+
+/*---档案管理---*/
+
+.table-wrapper-border {
+  border: 0.01em solid #dddddd;
+}
+
+.table-row {
+  @extend .table-wrapper-border;
+  padding: 0 3px;
+  min-height: 50px;
+  line-height: 45px;
+  font-size: 14px;
+}
+
+.table-row-right {
+  @extend .table-row;
+  text-align: right;
+}
+
+.table-row-oddBg {
+  background: #ffffff;
+}
+
+.table-row-evenBg {
+  background-color: #fcfcfc;
+}
+
+//房间管理迁入迁出大楼显示效果
+.build-list {
+  padding: 3px 5px;
+  width: 15%;
+  min-width: 200px;
+  height: 65px;
+  display: inline-block;
+  line-height: inherit;
+}
+
+//迁入迁出
+.build-room {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #a1a3a8;
+
+  .room-operate {
+    border-bottom: 1px solid #a1a3a8;
+    height: 30px;
+    text-align: right;
+
+    .room-text {
+      font-size: 14px;
+      float: left;
+      padding-left: 5px;
+      line-height: 30px;
+      color: #000;
+    }
+  }
+
+  .room-image {
+    padding-top: 3px;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  .room-content {
+    padding-top: 20px;
+    text-align: center;
+    height: 170px;
+    overflow: auto;
+
+    .room-no {
+      display: inline-block;
+      width: 50%;
+
+      .room-user {
+        cursor: pointer;
+        color: #747cff;
+        font: 600 14px '微软雅黑';
+
+        &:hover {
+          color: #4c59ff;
+        }
+      }
+    }
+
+    .room-img {
+      padding-top: 15px;
+    }
+  }
+}
+
+//改变鼠标样式
+.pointer {
+  padding: 0 5px;
+  font-size: 14px;
+  color: #6b7dff;
+  cursor: pointer;
+}
+
+.pointer:hover {
+  color: #4c59ff;
+}
+
+.text-headline {
+  height: 40px;
+  font: bold 18px 'Microsoft YaHei';
+  margin-bottom: 10px;
+  text-align: center;
+  line-height: 50px;
+}
+
+//场次概括统计样式
+.overviewSession {
+  width: 200px;
+  background: #FDC395;
+
+  .overviewSession-content {
+    padding: 20px 0 20px 40px;
+    font: 16px '微软雅黑';
+
+    .overviewSession-text {
+      color: #3C9795;
+    }
+
+    .overviewSession-lh {
+      line-height: 30px;
+    }
+  }
+}
+
+
+/*---实习生---*/
+
+.newCalendar {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cal-schools,
+.cal-schoolTit {
+  padding: 8px 0;
+}
+
+.cal-check {
+  line-height: 36px;
+  color: #13CE66;
+  padding: 0 3px;
+  font-size: 16px;
+}
+
+.cal-schoolTit {
+  font-size: 16px;
+}
+
+//用户头像
+.user-img {
+  max-width: 200px;
+  min-width: 120px;
+  min-height: 160px;
+  max-heigth: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.min-img {
+  height: 45px
+}
+
+$boderColor:#dfe6ec;
+
+.modalContent {
+  margin: -16px;
+  margin-right: 0;
+  position: relative;
+
+  .leftCon {
+    width: 25%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #fcfcfc;
+    border-right: 1px solid $boderColor;
+
+    .infoItem {
+      // line-height: 40px;
+      padding: 10px 0 10px 16px;
+      line-height: 1.6;
+
+      &.top {
+        border-top: 1px solid $boderColor;
+      }
+
+      &.bottom {
+        border-bottom: 1px solid $boderColor;
+      }
+    }
+
+    &~.contentMain {
+      margin-left: 25%;
+    }
+  }
+
+  .contentMain {
+    min-height: 450px;
+
+    .stationList {
+      padding: 10px;
+      padding-right: 0;
+      overflow: hidden;
+    }
+  }
+}
+
+.leftSched {
+  min-height: 450px;
+  width: 35%;
+  display: inline-block;
+
+  .infoItem {
+    line-height: 40px;
+    padding-left: 16px;
+
+    &.top {
+      border-top: 1px solid $boderColor;
+    }
+
+    &.bottom {
+      border-bottom: 1px solid $boderColor;
+    }
+  }
+}
+
+.righrSched {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  left: 35%;
+  bottom: 0;
+
+  .stationList {
+    padding: 10px;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}
+
+//场次维护
+.add-score-head {
+  font: 500 14px '微软雅黑';
+  height: 30px;
+  line-height: 30px;
+  background-color: #5bd6ff;
+
+  .add-score-l {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+  }
+
+  .add-score-r {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    right: 0;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+
+.add-scope {
+  .el-form-item {
+    margin-bottom: 0;
+  }
+
+  .el-form-item__error {
+    display: none;
+  }
+}
+
+.to-channel {
+  .cell {
+    padding-left: 0;
+    padding-right: 0;
+
+    .el-input__inner {
+      border: none;
+    }
+  }
+
+}
+
+.exmUserContent .teacher-header {
+  padding-left: 10px;
+  line-height: 32px;
+  background-color: #d1dbe5;
+}
+
+//宿舍管理图片
+.dormitory {
+  display: inline-block;
+  cursor: pointer
+}
+
+// 学生时间表 在自由考核下高度
+.student-FREE td {
+  height: inherit
+}
+
+//导入样式
+.el-table .info-row {
+  background: #c9e5f5;
+}
+
+.el-table .positive-row {
+  background: #ffdae6;
+  //td {
+  //   border-bottom: none;
+  //   border-right: 1px solid #f06e87;
+  //}
+}
+
+.to-channel {
+
+  .el-table td,
+  .el-table th {
+    border-right: 1px solid rgba(158, 158, 158, 0.71);
+    border-bottom: 1px solid #9E9E9E;
+  }
+
+  .el-table__header-wrapper tr {
+    border-top: 1px solid rgba(158, 158, 158, 0.71);
+    border-left: 1px solid rgba(158, 158, 158, 0.71);
+  }
+
+  .el-table__body tr {
+    border: 1px solid rgba(158, 158, 158, 0.71);
+    border-top: none;
+  }
+
+
+}
+
+
+.info-row {
+  color: #58B7FF;
+}
+
+.selfBody .el-table::after {
+  content: none;
+}
+
+//实习生  基础设置
+.form-fieldset-wrapper {
+  position: relative;
+}
+
+.form-fieldset-del {
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
+
+.font14 {
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+//实习生  分组设置
+.myCard {
+  overflow: hidden;
+}
+
+.myCard .el-card__header {
+  padding: 3px 5px;
+  background: #F9FAFC;
+}
+
+.myCard .headerBox {
+  position: relative;
+}
+
+.myCard .headerRemove {
+  position: absolute;
+  top: 8px;
+  right: 0;
+}
+
+
+// 查看 隐藏删除图标
+.onlyUploadShow {
+  li.el-upload-list__item:hover {
+    .el-icon-close {
+      display: none;
+    }
+
+    .el-upload-list__item-status-label {
+      display: inline-block;
+    }
+  }
+}
+
+
+
+//选择框的宽度
+// 影响全局样式，使用时请加模块前缀
+// .select-width{
+//   width:200px;
+// }
+//日期选择框的宽度
+// 影响全局样式，使用时请加模块前缀
+// .date-select-width{
+//   width:193px;
+// }
+
+
+//批注
+.postil-text {
+  color: red;
+  //text-align: center;
+
+}
+
+//课程表
+.el-table .info-row {
+  background: #c9e5f5;
+}
+
+.el-table .positive-row {
+  background: #e2f0e4;
+}
+
+.info-column {
+  background: #ff00ff;
+}
+
+.row-bg {
+  padding: 10px 0;
+}
+
+.showCurrMess {
+  width: 900px;
+  position: relative;
+  background: #fff;
+}
+
+.currUserMess {
+  width: 120px;
+  height: 150px;
+  position: absolute;
+  top: 6px;
+  right: 40px;
+}
+
+//科室对照表
+.div-border {
+  border-bottom: 1px solid #dfe6ec;
+  height: 45px;
+  line-height: 45px;
+}
+
+.div-border1 {
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #dfe6ec;
+}
+
+.div-noborder2 {
+  border: none;
+  padding: 10px 0 0 0;
+}
+
+.div-noborder {
+  border: none;
+}
+
+.sltDepWrapper {
+  padding: 10px;
+  height: 300px;
+  overflow: auto;
+  border: 1px solid #EFF2F7;
+}
+
+ul.sltDepUl {}
+
+.sltDepBox {
+  float: left;
+}
+
+ul.sltDepUl li.sltDep {
+  width: 170px;
+  height: 25px;
+  line-height: 25px;
+  padding-left: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+}
+
+ul.sltDepUl li.sltSubDep {
+  width: 150px;
+  height: 25px;
+  line-height: 25px;
+  padding-left: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  margin-left: 20px;
+}
+
+
+.select-W .el-select .el-input {
+  width: 100%;
+}
+
+
+
+
+.select-courses {
+  width: 240px;
+  height: 220px;
+  border-radius: 10px;
+  border: 1px solid;
+  display: inline-block;
+  margin: 10px;
+}
+
+.select-courses2 {
+  border-color: rgb(19, 206, 102);
+}
+
+
+//视频列表样式
+.my-video-list {
+  background: #abb19c;
+  color: #b087dc;
+}
+
+//图片文件隐藏名称
+.hide-name {
+  .el-upload-list__item-name {
+    display: none;
+  }
+
+  .el-upload-list__item {
+    width: 125px;
+  }
+}
+
+//教学计划文件管理按钮
+.my-tooltip-button .el-button {
+  margin-left: 0;
+}
+
+// 内容超出显示滚动条
+.showOverflow {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}

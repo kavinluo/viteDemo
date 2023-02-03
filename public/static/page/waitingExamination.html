@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+  <title>候考信息</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+      font-size: 14px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      color: #444;
+    }
+
+    ul,
+    ol li {
+      list-style: none;
+    }
+
+    #waitingExaminationBox {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /*.waitingExaminationBox {*/
+    /*width: 100%;*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*top: 0;*/
+    /*overflow: hidden;*/
+    /*}*/
+
+    .waitingExaminationTable {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      border: 1px solid #e1e1e1;
+      position: relative;
+    }
+
+    .waitingExaminationTable p {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #e1e1e1;
+    }
+
+    .waitingExaminationTable p:not(.name) {
+      text-align: center;
+    }
+
+    .waitingExaminationTable .static {
+      min-width: 90px;
+    }
+
+    .waitingExaminationTable .name {
+      min-width: 80px;
+    }
+
+    .waitingExaminationTableHead {
+      display: flex;
+      z-index: 2;
+      background: #fff;
+      width: 100%;
+      justify-content: space-between;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .waitingExaminationTableBodyBox {
+      position: absolute;
+      left: 0;
+      right: -17px;
+      top: 40px;
+      bottom: 0;
+      overflow-y: scroll;
+    }
+
+    .waitingExaminationTableBody {}
+
+    .waitingExaminationTableBodyItem {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .waitingExaminationTableBodyItem:nth-child(2n) {
+      background-color: #f4f4f4;
+    }
+
+    .tips {
+      text-align: center;
+      font-size: 1vw;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #player {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .freeBox {
+      text-align: center;
+      font-size: 3vw;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-60%);
+    }
+
+    .freeBox p {
+      margin-top: 1vh;
+    }
+
+    .freeBox span {
+      color: red;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="waitingExaminationBox">
+    <p class="tips">数据加载中...</p>
+  </div>
+  <div id="player"></div>
+  <script src="../inStudyRegister/jquery/jquery.min.js"></script>
+  <script src="/static/ueditor1_4_3_3/ueditor.config.js"></script>
+  <script>
+    $(function () {
+      getConfig()
+      //    getShowData()
+      //    playerAudio()
+    })
+
+    var waitingExaminationBox = $('#waitingExaminationBox');
+    var waitingExaminationTableBodyBox = null;
+
+    var Y = 0;
+    var marqueeInt = null;
+    var marqueeTime = null;
+    var stationStatusInt = null;
+    var oldStationStatus = '';
+    var oldStationId = '';
+
+    var showData = null;
+
+    //  var mp3List = ['http://www.lmlblog.com/blog/bozhao/images/believe.mp3', 'http://www.lmlblog.com/blog/bozhao/images/shui.mp3']; // 等待播放文件
+    var mp3List = []; // 等待播放文件
+    var myAudio = null;
+    var basePath = '';
+
+    // 播放音频
+    function playerAudio() { //把需要播放的歌曲从后往前排，这里已添加两首音乐，可继续添加多个音乐
+      if (!myAudio) {
+        myAudio = new Audio();
+        myAudio.preload = true;
+        myAudio.controls = false;
+        myAudio.loop = false; //禁止循环，否则无法触发ended事件
+        document.getElementById('player').appendChild(myAudio);
+      }
+
+      if (!mp3List.length) {
+        return
+      }
+
+      myAudio.src = basePath + mp3List.shift(); //每次读数组第一个元素
+      myAudio.addEventListener('ended', playEndedHandler, false);
+      //    console.log('开始播放：' + myAudio.src)
+      myAudio.play();
+
+      function playEndedHandler() {
+        myAudio.src = basePath + mp3List.shift();
+        myAudio.play();
+        //      console.log('开始播放：' + myAudio.src)
+        if (!mp3List.length) {
+          //        console.log('移除监听事件')
+          myAudio.removeEventListener('ended', playEndedHandler, false); // 只有一个元素时解除绑定
+        }
+      }
+    }
+
+    // 获取配置
+    function getConfig() {
+      $.ajax('/api/envs?time=' + new Date().getTime(), {
+        type: 'get',
+        dataType: 'json',
+        success: function (res) {
+          config = res.data;
+          if (res.data instanceof Object) {
+            basePath = res.data.http;
+            getShowData()
+          }
+        }
+      })
+    }
+
+    // 获取查看数据
+    function getShowData() {
+      stopMarquee();
+      Y = 0;
+      clearInterval(stationStatusInt);
+      showData = null;
+      $.ajax('/api' + globlURLPrefix.osce + '/scene/arrangement/waiting/list?time=' + new Date().getTime(), {
+        type: 'get',
+        dataType: 'json',
+        success: function (res) {
+          var isObj = res.data instanceof Object;
+          showData = res.data;
+          if (isObj) {
+            waitingExaminationBox.html(getDomByData(res.data.sceneStatus, res.data.userList, res.data.sceneType,
+              res))
+          } else {
+            waitingExaminationBox.html(getDomByData('', []))
+          }
+          waitingExaminationTableBodyBox = null;
+          if (isObj && res.data.sceneType !== 'FREE' && res.data.userList.length) {
+            marquee(); // 开启滚动模式
+            loadStationStatus(); // 加载当前场次状态
+          } else { // 没有数据就一直请求
+            setTimeout(function () {
+              getShowData()
+            }, 1000)
+          }
+        },
+        error: function (e) {
+          waitingExaminationBox.html(getDomByData('', []))
+          setTimeout(function () {
+            getShowData()
+          }, 60 * 1000)
+        }
+      })
+    }
+
+    // 加载当前场次的考核状态
+    function loadStationStatus() {
+      clearInterval(stationStatusInt)
+      getNowStationStatus()
+      stationStatusInt = setInterval(function () {
+        getNowStationStatus()
+      }, 1000)
+    }
+
+    // 获取当前场次状态
+    function getNowStationStatus() {
+      $.ajax('/api' + globlURLPrefix.osce + '/scene/get/default/basic?time=' + new Date().getTime(), {
+        type: 'get',
+        dataType: 'json',
+        success: function (res) {
+          if (oldStationStatus === '') {
+            oldStationStatus = res.data.status
+            oldStationId = res.data.id
+          }
+          if (res.data.status === 'FINISH') {
+            clearInterval(stationStatusInt);
+            stopMarquee();
+            waitingExaminationBox.html(getDomByData('', []));
+            return
+          }
+          if (oldStationStatus != res.data.status || oldStationId != res.data.id) {
+            getShowData()
+            oldStationStatus = res.data.status
+            oldStationId = res.data.id
+          }
+        }
+      })
+    }
+
+    /**
+     * 根据请求数据生成dom
+     * @param sceneStatus 场次状态
+     * @param userList 候考人员
+     * @param sceneType 场次类型（可省略）
+     * @param res （可省略）
+     * @returns {string}
+     */
+    function getDomByData(sceneStatus, userList, sceneType, res) {
+      var dom = [];
+      var playAudio = !mp3List.length; // 是否执行播放任务
+      //    console.log(mp3List)
+      if (sceneType === 'FREE') { // 自由考核
+        dom.push('<div class="freeBox">')
+        dom.push('<h2 class="esName">' + res.data.esName + '</h2>')
+        dom.push('<p class="time">开始时间：<span>' + timestampToTime(res.data.startTime, true) + '</span></p>')
+        dom.push('</div>')
+        // 音频播放
+        if (res.data instanceof Object && res.data.mp3List.length) {
+          mp3List = mp3List.concat(res.data.mp3List)
+        }
+        playAudio && playerAudio()
+        return dom.join('')
+      }
+      if (!userList.length || sceneStatus == 'FINISH') {
+        dom.push('<p class="tips">暂无候考信息</p>')
+        return dom.join('')
+      }
+      dom.push('<div class="waitingExaminationTable">');
+      // tableHeader
+      dom.push('<div class="waitingExaminationTableHead">');
+      dom.push('<p class="static">考生姓名</p>');
+      dom.push('<p class="static">开始时间</p>');
+      for (var i = 1; i <= userList[0].rotaryMap.length; i++) { // 第几站
+        dom.push('<p>' + i + '</p>');
+      }
+      dom.push('</div>');
+      // tableBody
+      dom.push('<div class="waitingExaminationTableBodyBox" id="waitingExaminationTableBodyBox">')
+      dom.push('<div class="waitingExaminationTableBody">')
+      for (var j = 0; j < userList.length; j++) { // 第几站
+        dom.push('<div class="waitingExaminationTableBodyItem">');
+        dom.push('<p class="static">' + userList[j].userName + '</p>')
+        dom.push('<p class="static">' + userList[j].startTime.split(' ')[1].split('.')[0] + '</p>')
+        for (var k = 0; k < userList[j].rotaryMap.length; k++) {
+          dom.push('<p>' + userList[j].rotaryMap[k].stationName + '(' + userList[j].rotaryMap[k].essRoom + ')' + '</p>');
+        }
+        dom.push('</div>')
+      }
+      dom.push('</div>')
+      dom.push('</div>')
+      dom.push('</div>')
+
+      return dom.join('')
+    }
+
+    // 自动滚动
+    function marquee() {
+      stopMarquee()
+      marqueeTime = setTimeout(function () {
+        startMarqueeUp()
+      }, 3000);
+    }
+
+    // 正向滚动
+    function startMarqueeUp() {
+      //    console.log('开始正向滚动')
+      clearInterval(marqueeInt)
+      if (!waitingExaminationTableBodyBox) {
+        waitingExaminationTableBodyBox = document.getElementById('waitingExaminationTableBodyBox')
+      }
+      marqueeInt = setInterval(function () {
+        Y += 1
+        scrollTop(waitingExaminationTableBodyBox, Y)
+        if (Y - 1 >= scrollTop(waitingExaminationTableBodyBox)) {
+          stopMarquee()
+          if (Y > 2) {
+            marqueeTime = setTimeout(function () {
+              startMarqueeDown()
+            }, 3000)
+          }
+        }
+      }, 50)
+    }
+
+    // 反向滚动
+    function startMarqueeDown() {
+      //    console.log('开始反向滚动')
+      clearInterval(marqueeInt)
+      if (!waitingExaminationTableBodyBox) {
+        waitingExaminationTableBodyBox = document.getElementById('waitingExaminationTableBodyBox')
+      }
+      marqueeInt = setInterval(function () {
+        Y -= 1
+        scrollTop(waitingExaminationTableBodyBox, Y)
+        if (Y <= 0) {
+          stopMarquee()
+          marqueeTime = setTimeout(function () {
+            // startMarqueeUp()
+            getShowData()
+          }, 3000)
+        }
+      }, 50)
+    }
+
+    // 结束滚动
+    function stopMarquee() {
+      clearInterval(marqueeInt)
+      clearTimeout(marqueeTime)
+      //    console.log('结束滚动')
+    }
+
+    // 获取滚动距离或者滚动到指定位置
+    function scrollTop(obj, len) {
+      if (typeof len === 'undefined') {
+        return obj.scrollTop;
+      } else {
+        obj.scrollTop = len;
+      }
+    }
+
+    function timestampToTime(timestamp, noText) {
+      var date = new Date(timestamp), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + (noText ? '-' : '年'),
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + (noText ? '-' : '月'),
+        D = date.getDate() + (noText ? '' : '日') + ' ',
+        h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds(),
+        t = '上午';
+
+      t = h <= 12 ? '上午' : '下午';
+      if (!noText) {
+        h = h > 12 ? h - 12 : h;
+      }
+
+      h = h < 10 ? '0' + h : h;
+      m = m < 10 ? '0' + m : m;
+      s = s < 10 ? '0' + s : s;
+      return Y + M + D + (noText ? '' : t) + h + ':' + m + ':' + s;
+    }
+
+  </script>
+</body>
+
+</html>

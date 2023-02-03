@@ -1,0 +1,211 @@
+.inStudyRegister {
+  width: 940px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.inStudyRegister table, .inStudyRegister thead, .inStudyRegister tbody, .inStudyRegister tr, .inStudyRegister td, .inStudyRegister th, .inStudyRegister p, .inStudyRegister input {
+  margin: 0;
+  padding: 0;
+}
+
+.inStudyRegister table {
+  width: 100%;
+  cellspacing: 0;
+  cellpadding: 0;
+  border: 0;
+}
+
+.inStudyRegister table, .inStudyRegister tr, .inStudyRegister td {
+  border: 1px solid #0a0c0d;
+  border-collapse: collapse;
+}
+
+.inStudyRegister tr.place {
+  border: none;
+  height: 0;
+  overflow: hidden;
+}
+
+.inStudyRegister input {
+  /*border: none;*/
+  border: 1px solid #FFFFFF;
+  outline: none;
+  background: none;
+}
+
+.inStudyRegister input.border {
+  border: 1px solid #0a0c0d;
+  padding: 4px;
+}
+
+.inStudyRegister input[type=text]{
+  width: 100%;
+}
+
+.inStudyRegister input[type=radio]{
+  font-size: 12px;
+  /*width: 16px;*/
+  /*height: 16px;*/
+  margin-right: 2px;
+  vertical-align:middle; margin-top:-2px; margin-bottom:1px;
+  cursor: pointer;
+}
+
+.inStudyRegister input ~ label {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.inStudyRegister .titleBox{
+  position: relative;
+}
+
+.inStudyRegister .titleBox .text{
+  position: absolute;
+  top: 1px;
+  left: 0;
+  right: 1px;
+  bottom: 1px;
+  line-height: 160px;
+  background-color: #fff;
+}
+
+.inStudyRegister .text {
+  padding: 8px 10px;
+}
+
+.inStudyRegister .input {
+  padding: 8px;
+}
+
+.inStudyRegister .course{border: none;width: 100%;outline: none;}
+
+.inStudyRegister .picBox{position: relative;}
+
+.inStudyRegister .photo {
+  /*width: 100%;*/
+  /*height: 100%;*/
+  cursor: pointer;
+  position: absolute;
+  top: 1px;
+  left: 0;
+  right: 1px;
+  bottom: 1px;
+  background-color: #fff;
+}
+
+.inStudyRegister .photo:after{content: '1寸蓝底照';text-align: center;width: 100%;position: absolute;top:50%;left: 0;margin-top: -10px;z-index:0;}
+
+.inStudyRegister .photo > img{height: 100%;max-width: 100%;display: block;margin: 0 auto;position: absolute;left:0;right: 0;z-index: 1;}
+
+.inStudyRegister .idPic {
+  width: 100%;
+  overflow: hidden;
+}
+
+.inStudyRegister .required span{
+  color: red;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.inStudyRegister .idPic div {
+  width: 48.5%;
+  height: 200px;
+  cursor: pointer;
+  margin-top: 20px;
+  border: 1px solid #0a0c0d;
+  position: relative;
+}
+
+.inStudyRegister .idPic img{max-height: 100%;max-width: 100%;display: block;margin: 0 auto;}
+
+.inStudyRegister .idPic div:before {
+  line-height: 200px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.inStudyRegister td[colspan='7'] input{width: 96%;}
+.inStudyRegister .diploma:before {
+  content: '毕业证';
+}
+.inStudyRegister .face:before {
+  content: '身份证正面';
+}
+
+.inStudyRegister .con:before {
+  content: '身份证反面';
+}
+.inStudyRegister .dc:before {
+  content: '执业证';
+}
+
+.inStudyRegister .ir:before {
+  content: '资格证';
+}
+
+/*.inStudyRegister .dc:before {
+  content: '执业机构登记证';
+}
+
+.inStudyRegister .ir:before {
+  content: '执业医师证书';
+}*/
+
+.inStudyRegister .left {
+  float: left;
+}
+
+.inStudyRegister .right {
+  float: right;
+}
+
+.inStudyRegister .btnBox{
+  margin: 24px auto;
+  text-align: center;
+}
+
+.inStudyRegister .btn {
+  /*width: 100px;*/
+  height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  line-height: 40px;
+  display: inline-block;
+  margin: 0 10px;
+  border: 1px solid #666;
+  color: #0a0c0d;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.inStudyRegister .files{
+  line-height: 32px;
+  margin-top: 20px;
+}
+
+.inStudyRegister .fileLabel{width: 100px;height: 30px;display: inline-block;border: 1px solid #666;text-align: center;line-height: 30px;border-radius: 4px;cursor: pointer;}
+
+.inStudyRegister .fileInput{opacity: 0;width: 0;height: 0;overflow: hidden;}
+
+.inStudyRegister .fileName{margin-right: 10px;}
+
+.inStudyRegister .checkInTime{display: none;}
+.inStudyRegister .checkInTime.active{display: inline-block;}
+
+@media print {
+  .inStudyRegister input[type=radio] {
+    width: 0;
+  }
+
+  .inStudyRegister .btn {
+    display: none;
+  }
+}

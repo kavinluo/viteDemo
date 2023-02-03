@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <title></title>
+  <script src="js/mui.min.js"></script>
+  <link href="css/mui.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="jslib/ckplayer/ckplayer.js"></script>
+  <style>
+    .mui-slider-group{
+      height: 100%;
+    }
+    .mui-control-content {
+      background-color: white;
+      min-height: 100%;
+    }
+    .mui-control-content .mui-loading {
+      margin-top: 50px;
+    }
+    /*--聊天--*/
+    .mui-table-view li{
+      padding: 10px;
+    }
+    .chatBox-item{
+      height: auto;
+    }
+    .chatBox-item .titleText{
+      color: #5bc0de;
+    }
+    .chatBox-item .contentText{
+      padding: 10px;
+    }
+    .chatBox-bottom{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 40px;
+      padding: 5px;
+      height: 50px;
+      z-index: 100;
+      background-color: #efeff4;
+    }
+    .chatBox-bottom-left{
+      margin-right: 60px;
+    }
+    .chatBox-bottom-right{
+      position: absolute;
+      top: 4px;
+      right: 0;
+      height: 40px;
+      width: 60px;
+    }
+    .labBox{
+      position: absolute;
+      top: 290px;
+      left: 0;
+      right: 0;
+      bottom: 40px;
+    }
+    .mui-bar-tab{
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+  <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+  <h1 id="workshopName" class="mui-title">穿刺课题研究</h1>
+</header>
+<nav class="mui-bar mui-bar-tab">
+  <div class="mui-content-padded">
+    <p style="text-align: center">北京众恒志信科技开发股份有限公司承建</p>
+  </div>
+</nav>
+<div class="mui-content" style="background-color:#fff">
+  <div class="mui-content-padded">
+  <div class="video" style="width:100%;height: 200px;"></div>
+  <div id="tdBox" style="padding: 10px;"></div>
+  </div>
+  <div class="labBox">
+    <div id="slider" class="mui-slider" style="height: 100%;">
+      <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <a class="mui-control-item" href="#item1mobile">聊天</a>
+        <a class="mui-control-item" href="#item2mobile">介绍</a>
+        <a class="mui-control-item" href="#item3mobile">其他课程</a>
+      </div>
+      <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+      <div class="mui-slider-group">
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+          <div id="scroll1" class="mui-scroll-wrapper">
+            <div class="mui-scroll" style="padding-bottom: 70px;">
+              <ul id="chatMessContent" class="mui-table-view">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="item2mobile" class="mui-slider-item mui-control-content">
+          <div id="scroll2" class="mui-scroll-wrapper">
+            <div class="mui-scroll" style="padding-bottom: 40px;">
+              <div class="mui-loading">
+                <div class="mui-spinner">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div id="item3mobile" class="mui-slider-item mui-control-content">
+          <div id="scroll3" class="mui-scroll-wrapper">
+            <div class="mui-scroll" style="padding-bottom: 40px;">
+              <div class="mui-loading">
+                <div class="mui-spinner">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div id="chatBox" class="chatBox-bottom">
+  <div class="mui-row">
+    <div class="chatBox-bottom-left">
+      <div class="mui-input-row">
+        <input id="messInput" type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+      </div>
+    </div>
+    <div class="chatBox-bottom-right">
+      <div class="mui-button-row">
+        <button id="sendId" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">发送</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script src="js/template-web.js"></script>
+<script src="js/util.js"></script>
+
+<!--其它工作坊列表-->
+<script id="work-other" type="text/html">
+  {{each data}}
+  <div class="mui-card">
+    <a onclick="location.href='workshopDetail.html?workshopsId={{$value.workshopsId}}&roomId={{$value.roomId}}'" class="mui-navigate-right">
+      <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(/server/{{$value.thumbnailPath}})"></div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <p class="title">{{$value.workshopsName}}</p>
+          <div class="nowrap" style="color: #333;">{{#$value.summary}}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {{/each}}
+</script>
+
+<script>
+  var params = location.href.split("?")[1];
+
+  var obj = {};
+  if (params.indexOf("&") > -1) {
+    var splits = params.split("&");
+    for(var i=0;i<splits.length;i++){
+      var key = splits[i].split("=")[0] || splits[i];
+      var val = splits[i].split("=")[1] || undefined;
+      obj[key] = val;
+    }
+  }
+  var workshopsId = obj["workshopsId"];
+  var roomId = obj["roomId"];
+  var workshopsName = obj["workshopsName"];
+
+  mui.init({
+    swipeBack: false
+  });
+  function getBdScroll_h(){
+    var windowHeight = document.all ? document.getElementsByTagName("html")[0].offsetHeight : window.innerHeight;
+    var h = Math.max(windowHeight, document.getElementsByTagName("body")[0].scrollHeight);
+    return h;
+  }
+  (function($) {
+    $('.mui-scroll-wrapper').scroll({
+      indicators: true, //是否显示滚动条
+    });
+    var html2 = '';
+    var html3 = '';
+    var item1 = document.getElementById('item1mobile');
+    var item2 = document.getElementById('item2mobile');
+    var item3 = document.getElementById('item3mobile');
+    document.getElementById('slider').addEventListener('slide', function(e) {
+      if (e.detail.slideNumber === 1) {
+        if (item2.querySelector('.mui-loading')) {
+          setTimeout(function() {
+            item2.querySelector('.mui-scroll').innerHTML = html2;
+          }, 100);
+        }
+      } else if (e.detail.slideNumber === 2) {
+        if (item3.querySelector('.mui-loading')) {
+          $.ajax(api.workshopsOtherList.path+workshopsId,{
+            success:function (res) {
+              var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+              if (!flag) {
+                var data = res.data;
+                var html = template('work-other', {data: data});
+                html3 = html;
+                item3.querySelector('.mui-scroll').innerHTML = html;
+              }
+            },
+            error:function () {
+              mui.toast('数据请求失败!',{ duration:'long', type:'div' });
+            }
+          })
+        }
+      }
+      if (e.detail.slideNumber === 0) {
+        document.getElementById('chatBox').style.display = "block";
+      }else{
+        document.getElementById('chatBox').style.display = "none";
+      }
+    });
+
+    /*-----------获取工作坊的详细信息----------------------------*/
+    $.ajax(api.workshopsGet.path+workshopsId,{
+      success:function (res) {
+        var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+        if (!flag) {
+          var data = res.data;
+          document.getElementById("workshopName").innerHTML = data["workshopsName"];
+          html2 = "<div class=\"mui-content-padded\">"+data["summary"]+"</div>";
+        }
+      },
+      error:function () {
+        mui.toast('数据请求失败!',{ duration:'long', type:'div' });
+      }
+    })
+    /*-----------获取工作坊的详细信息----------------------------*/
+
+
+
+    /*-----------获取摄像信息----------------------------*/
+    //var myObj = {
+    $.ajax(api.cameraUrl.path+roomId,{
+      success:function (res) {
+
+        var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+        if (!flag) {
+          var data = res.data;
+          var tdBox = document.getElementById("tdBox");
+          var tempArr = [];
+          if(data.length==0){
+            tdBox.innerHTML = '通道错误或无视频通道可以播放';
+            videoObject.poster = 'images/novideo.jpg'; //封面图片
+            videoObject.video = '';
+            player = new ckplayer(videoObject);
+            return;
+          }
+          videoObject.video = data[0]['workshopsLiveUrl'];
+          player = new ckplayer(videoObject);
+          for(var i=0,item;i<data.length;i++){
+            item = data[i];
+            var cls = "";
+            if(i==0){
+              cls = "mui-btn-primary";
+            }
+            tempArr.push('<button type="button" url="'+item['workshopsLiveUrl']+'" class="mui-btn '+cls+' mui-btn-outlined">通道'+(i+1)+'</button>')
+          }
+          tdBox.innerHTML = tempArr.join(" ");
+
+          mui('#tdBox').on('tap', '.mui-btn', function(e) {
+            var url = this.getAttribute("url");
+            var buttons = tdBox.getElementsByTagName("button");
+            for(var i=0,item;i<buttons.length;i++){
+              item = buttons[i];
+              if(item.className.indexOf("mui-btn-primary")){
+                item.className = "mui-btn mui-btn-outlined";
+              }
+            }
+            this.className = "mui-btn mui-btn-primary mui-btn-outlined";
+            changeVideo(url);
+          });
+        }
+      },
+      error:function () {
+        mui.toast('数据请求失败!',{ duration:'long', type:'div' });
+      }
+    })
+
+
+
+    var videoObject = {
+      //playerID:'ckplayer01',//播放器ID，第一个字符不能是数字，用来在使用多个播放器时监听到的函数将在所有参数最后添加一个参数用来获取播放器的内容
+      container: '.video', //容器的ID或className
+      variable: 'player', //播放函数名称
+      loaded: 'loadedHandler', //当播放器加载后执行的函数
+      loop: true, //播放结束是否循环播放
+      autoplay: true, //是否自动播放
+      //duration: 500, //设置视频总时间
+      cktrack: 'ckplayer/material/srt.srt', //字幕文件
+      poster: 'images/video.jpg', //封面图片
+      preview: { //预览图片
+        file: ['images/video.jpg', 'images/video.jpg'],
+        scale: 2
+      },
+      config: '', //指定配置函数
+      debug: true, //是否开启调试模式
+      //flashplayer: true, //强制使用flashplayer
+      drag: 'start', //拖动的属性
+      seek: 0, //默认跳转的时间
+
+      //广告部分结束
+      promptSpot: [ //提示点
+        {
+          words: '提示点文字01',
+          time: 30
+        },
+        {
+          words: '提示点文字02',
+          time: 150
+        }
+      ],
+      live:true,
+      //mobileCkControls:true,//是否在移动端（包括ios）环境中显示控制栏
+      //live:true,//是否是直播视频，true=直播，false=点播
+
+    };
+    var player = null;
+    var zoomNow = 1;
+
+    function loadedHandler() {
+      player.addListener('error', errorHandler); //监听视频加载出错
+      player.addListener('loadedmetadata', loadedMetaDataHandler); //监听元数据
+      player.addListener('duration', durationHandler); //监听播放时间
+      player.addListener('time', timeHandler); //监听播放时间
+      player.addListener('play', playHandler); //监听暂停播放
+      player.addListener('pause', pauseHandler); //监听暂停播放
+      player.addListener('buffer', bufferHandler); //监听缓冲状态
+      player.addListener('seek', seekHandler); //监听跳转播放完成
+      player.addListener('seekTime', seekTimeHandler); //监听跳转播放完成
+      player.addListener('volume', volumeChangeHandler); //监听音量改变
+      player.addListener('full', fullHandler); //监听全屏/非全屏切换
+      player.addListener('ended', endedHandler); //监听播放结束
+      player.addListener('screenshot', screenshotHandler); //监听截图功能
+      player.addListener('mouse', mouseHandler); //监听鼠标坐标
+      player.addListener('frontAd', frontAdHandler); //监听前置广告的动作
+      player.addListener('wheel', wheelHandler); //监听视频放大缩小
+      player.addListener('controlBar', controlBarHandler); //监听控制栏显示隐藏事件
+      player.addListener('clickEvent', clickEventHandler); //监听点击事件
+      player.addListener('definitionChange', definitionChangeHandler); //监听清晰度切换事件
+      player.addListener('speed', speedHandler); //监听加载速度
+    }
+    function errorHandler() {
+      //console.log('出错')
+      changeText('.playerstate', '状态：视频加载错误，停止执行其它动作，等待其它操作');
+    }
+
+    function loadedMetaDataHandler() {
+      var metaData = player.getMetaDate();
+      //console.log(metaData)
+      var html = ''
+      //console.log(metaData);
+      if(parseInt(metaData['videoWidth']) > 0) {
+        changeText('.playerstate', '状态：获取到元数据信息，如果数据错误，可以使用延迟获取');
+        html += '总时间：' + metaData['duration'] + '秒，';
+        html += '音量：' + metaData['volume'] + '（范围0-1），';
+        html += '播放器的宽度：' + metaData['width'] + 'px，';
+        html += '播放器的高度：' + metaData['height'] + 'px，';
+        html += '视频宽度：' + metaData['videoWidth'] + 'px，';
+        html += '视频高度：' + metaData['videoHeight'] + 'px，';
+        html += '视频原始宽度：' + metaData['streamWidth'] + 'px，';
+        html += '视频原始高度：' + metaData['streamHeight'] + 'px，';
+        html += '是否暂停状态：' + metaData['paused'];
+      } else {
+        changeText('.playerstate', '状态：未正确获取到元数据信息');
+        html = '没有获取到元数据';
+      }
+      changeText('.metadata', html);
+    }
+    function playHandler() {
+      //player.animateResume();//继续播放所有弹幕
+      changeText('.playstate', getHtml('.playstate') + ' 播放');
+      window.setTimeout(function() {
+        loadedMetaDataHandler();
+      }, 1000);
+      loadedMetaDataHandler();
+    }
+
+    function pauseHandler() {
+      //player.animatePause();//暂停所有弹幕
+      changeText('.playstate', getHtml('.playstate') + ' 暂停');
+      loadedMetaDataHandler();
+    }
+
+    function timeHandler(time) {
+      changeText('.currenttimestate', '当前播放时间（秒）：' + time);
+    }
+
+    function durationHandler(duration) {
+      changeText('.duration', '总时间（秒）：' + duration);
+    }
+
+    function seekHandler(state) {
+      changeText('.seekstate', getHtml('.seekstate') + ' ' + state);
+    }
+
+    function seekTimeHandler(time) {
+      changeText('.seekstate', getHtml('.seekstate') + ' seekTime:' + time);
+    }
+
+    function bufferHandler(buffer) {
+      //console.log(buffer);
+      changeText('.bufferstate', '缓冲：' + buffer);
+    }
+
+    function volumeChangeHandler(vol) {
+      changeText('.volumechangestate', '当前音量：' + vol);
+    }
+    function speedHandler(n) {
+      changeText('.speed', '当前加载速率：' + n);
+    }
+    function screenshotHandler(obj) {
+      changeText('.screenshot', '图片名称：' + obj['name'] + ',截图对象：' + obj['object'] + ',是否用户保存：' + obj['save'] + ',图片：<img src="' + obj['base64'] + '">');
+    }
+
+    function fullHandler(b) {
+      if(b) {
+        html = ' 全屏';
+      } else {
+        html = ' 否';
+      }
+      changeText('.fullstate', getHtml('.fullstate') + html);
+
+    }
+
+    function endedHandler() {
+      changeText('.endedstate', '播放结束');
+    }
+
+    function mouseHandler(obj) {
+      changeText('.mouse', '鼠标位置，x：' + obj['x'] + '，y：' + obj['y']);
+    }
+
+    function frontAdHandler(status) {
+      changeText('.frontad', getHtml('.frontad') + ' ' + status);
+    }
+
+    function wheelHandler(n) {
+      if(n > 0) {
+        if(zoomNow < 5) {
+          zoomNow += 0.1;
+        }
+      } else {
+        if(zoomNow > 0) {
+          zoomNow -= 0.1;
+        }
+      }
+      player.videoZoom(zoomNow);//支持鼠标滚轮控制放大缩小
+    }
+    function controlBarHandler(show){
+      if(show) {
+        html = ' 显示';
+      } else {
+        html = ' 隐藏';
+      }
+      changeText('.controlBar', getHtml('.controlBar') + html);
+    }
+    function clickEventHandler(eve){
+      changeText('.clickEvent', getHtml('.clickEvent') + ' '+eve);
+    }
+    function definitionChangeHandler(num){
+      changeText('.definitionChange', getHtml('.definitionChange') + ',切换清晰度编号'+num);
+    }
+
+
+
+    function changeText(div, text) {
+      player.getByElement(div).innerHTML = text;
+    }
+
+    function getHtml(div) {
+      return player.getByElement(div).innerHTML;
+    }
+
+    function seekTime() {
+      var time = parseInt(player.getByElement('.seektime').value);
+      var metaData = player.getMetaDate();
+      var duration = metaData['duration'];
+      if(time < 0) {
+        alert('请填写大于0的数字');
+        return;
+      }
+      if(time > duration) {
+        alert('请填写小于' + duration + '的数字');
+        return;
+      }
+      player.videoSeek(time);
+    }
+    function changeVideo(videoUrl) {
+      if(player == null) {
+        return;
+      }
+
+      var newVideoObject = {
+        container: '.video', //容器的ID
+        variable: 'player',
+        poster: 'images/video.jpg', //封面图片
+        autoplay: true, //是否自动播放
+        live:true,
+        loaded: 'loadedHandler', //当播放器加载后执行的函数
+        video: videoUrl
+      }
+      //判断是需要重新加载播放器还是直接换新地址
+
+      if(player.playerType == 'html5video') {
+        if(player.getFileExt(videoUrl) == '.flv' || player.getFileExt(videoUrl) == '.m3u8' || player.getFileExt(videoUrl) == '.f4v' || videoUrl.substr(0, 4) == 'rtmp') {
+          player.removeChild();
+
+          player = null;
+          player = new ckplayer();
+          player.embed(newVideoObject);
+        } else {
+          player.newVideo(newVideoObject);
+        }
+      } else {
+        if(player.getFileExt(videoUrl) == '.mp4' || player.getFileExt(videoUrl) == '.webm' || player.getFileExt(videoUrl) == '.ogg') {
+          player = null;
+          player = new ckplayer();
+          player.embed(newVideoObject);
+        } else {
+          player.newVideo(newVideoObject);
+        }
+      }
+    }
+
+
+
+    /*-----------获取摄像信息----------------------------*/
+
+
+
+    /*-----------工作坊聊天----------------------------*/
+    /*$(".chat").click(function(){
+      //queryChatData();
+    })*/
+    var lastTime = 0;
+    var chatMess = [];
+    function queryChatData () {
+      //jQuery('#home').showLoading();
+      $.ajax(api.workshopsChatRoom.path+workshopsId,{
+        data:{lastTime:lastTime,randNum:Math.random()},
+        success:function (res) {
+          var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+          if (!flag) {
+            var data = res.data;
+            lastTime = data["lastTime"];
+            chatMess = chatMess.concat(data["msgList"]);
+            updateChatMess(chatMess);
+          }
+        },
+        error:function () {
+          setTimeout(queryChatData,100)
+          //jQuery('#home').hideLoading();
+        }
+      })
+    }
+    function updateChatMess (data) {
+      var tempArr = [];
+      for(var i=0,item;i<data.length;i++){
+        item = data[i];
+        var sendingTime = formatDate(item["sendingTime"],"yyyy-MM-dd hh:mm:ss");
+        var html = '<li class="chatBox-item"><div class="titleText"><span class="mui-icon mui-icon-chat"></span> '+item["userName"]+' '+sendingTime+'</div><div class="contentText">'+item["content"]+'</div></li>'
+        tempArr.push(html)
+      }
+      document.getElementById("chatMessContent").innerHTML = tempArr.join("");
+      var chatMessContentHt = document.getElementById("chatMessContent").offsetHeight;
+      var scroll1Ht = document.getElementById("scroll1").offsetHeight;
+      var d = chatMessContentHt - scroll1Ht;  //
+      var scroll = $("#scroll1").scroll();
+      if(d>0){
+        scroll.reLayout();
+        //滚动到底部
+        scroll.scrollToBottom(100);
+      }
+      queryChatData();
+    }
+    mui(document.body).on('tap', '.mui-btn', function(e) {
+      if(this.getAttribute("id")=="sendId"){
+        mui(this).button('loading');
+        var data = {
+          workshopsId: workshopsId,
+          content: document.getElementById("messInput").value
+        }
+        document.getElementById("messInput").value = "";
+        document.getElementById("messInput").blur();
+        $.post(api.sendChatRoom.path+workshopsId, data, function (res) {
+          var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+          if (!flag) {
+            mui(this).button('reset');
+            //clearInterval(stInter);
+            //queryChatData();
+            //stInter = setInterval(queryChatData,10000);
+          }
+        }.bind(this))
+      }
+
+    });
+    queryChatData();
+    //var stInter = setInterval(queryChatData,5000);
+    /*-----------工作坊聊天----------------------------*/
+
+
+  })(mui);
+</script>
+</body>
+</html>

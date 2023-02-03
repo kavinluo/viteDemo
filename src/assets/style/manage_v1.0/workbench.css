@@ -1,0 +1,281 @@
+@charset "utf-8";
+/* CSS Document */
+/* 
+ *
+ *  @description: 工作台
+ *  @author: zyc 
+ *  @update: name (2016-08-31) 
+ *  Copyright ambuf. All Rights Reserved.
+ * ***************************************************************************
+ */
+
+/* 
+ *
+ *  @description: 通知公告
+ *  @author: zyc 
+ *  @update: name (2016-08-31) 
+ *  Copyright ambuf. All Rights Reserved.
+ * ***************************************************************************
+ */
+.workbench-notice{
+	height: 33px;
+	background:#FFFFFF;
+}
+
+.workbench-notice .notice-list{}
+.workbench-notice .notice-list li{
+    line-height: 30px;
+    list-style: outside none none;
+    margin-right: 20px;
+    overflow: hidden;
+    float: left;
+    font-size: 0.8em;
+}	
+.workbench-notice .notice-list li.notice-title{
+	padding-left: 14px;
+}
+.workbench-notice .notice-list li .date {
+    color: #1b242f;
+    margin-right: 6px;
+}
+.workbench-notice .notice-list li.notice-more a{
+	color: #0078ff;
+}
+.workbench-notice .notice-list li span, .workbench-notice .notice-list li a {
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    text-rendering: optimizelegibility;
+    vertical-align: inherit;
+    color: #ff6c60;
+}
+
+/* 
+ *
+ *  @description: 培训进度
+ *  @author: zyc 
+ *  @update: name (2016-08-31) 
+ *  Copyright ambuf. All Rights Reserved.
+ * ***************************************************************************
+ */
+.workbench-main{
+	position: relative;
+	margin:12px;
+	padding: 1px;
+}
+.workbench-main-left{
+	margin-right: 304px;
+	height: auto;
+}
+.workbench-main-right{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 290px;
+	height: auto;
+}
+
+.workbench-training-pro{
+	background: #FFFFFF;
+	
+}
+
+.workbench-training-pro .training-title-text01{
+	color: #0087b4;
+}
+.workbench-training-pro .training-title-text02{
+	color: #5c5c5c;
+}
+em.color-0087b4{
+	color: #0087b4;
+}
+
+.workbench-training-intr{
+	position: relative;
+	padding: 42px 14px 20px 68px;
+}
+.workbench-training-intr .jdicon-line{
+	position: absolute;
+	left: 48px;
+	top: 40px;
+	bottom: 10px;
+	width: 5px;
+	background: #f3f3f4;
+}
+.workbench-training-intr .jdicon-circular01
+,.workbench-training-intr .jdicon-circular02{
+	position: absolute;	
+	width: 30px;
+	height: 30px;
+	background-image: url(images/icons.png);
+	background-repeat: no-repeat;
+}
+.workbench-training-intr .jdicon-circular01{
+	left: 36px;
+	top: 26px;
+	background-position: 0 -270px;
+}
+.workbench-training-intr .jdicon-circular02{
+	left: 36px;
+	bottom: 0;
+	background-position: 0 -300px;
+}
+.workbench-training-intr .ul-list{
+}
+.workbench-training-intr .ul-list li{
+	line-height: 40px;
+}
+.workbench-training-pro .btn-box{
+	text-align: center;
+	padding: 22px 0;
+}
+.btn-rkbd{
+	padding: 3px 50px;
+}
+
+/* 
+ *
+ *  @description: 公用信息展示区
+ *  @author: zyc 
+ *  @update: name (2016-08-31) 
+ *  Copyright ambuf. All Rights Reserved.
+ * ***************************************************************************
+ */
+.comm-area{
+	min-height: 416px;
+	background: #FFFFFF;
+}
+.comm-area .training-title-text01{
+	color: #ff6c60;
+}
+.comm-area .training-title-text02 a{
+	color: #0078ff;
+}
+.comm-area .ul-list{
+	padding: 14px;
+}
+.comm-area .ul-list li{
+	border: 1px solid #e7eaec;
+	padding: 2px 18px;
+	margin-bottom: 10px;
+	border-left-width: 3px;
+}
+.comm-area .ul-list li.first{
+	border-left-color: #0087b4;
+}
+.comm-area .ul-list li.second{
+	border-left-color: #ed5565;
+}
+.comm-area .ul-list li.third{
+	border-left-color: #1ab394;
+}
+.comm-area .dl-content{}
+.comm-area .dl-content dt{
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	word-break:keep-all;
+}
+.comm-area .dl-content dt em{
+	color: #010101;
+}
+.comm-area .dl-content dt a{
+	display: inline;
+}
+.comm-area .dl-content dt a,.comm-area .dl-content dd .date{
+	color: #676a6c;	
+}
+.comm-area .dl-content dt a:hover{
+	color: #0078ff;
+}
+.comm-area .dl-content dd{
+	overflow: hidden;
+}
+.comm-area .dl-content dd .date{
+	font-size: 0.8em;	
+}
+.comm-area .dl-content dd .status-dc7200{
+	color: #dc7200;
+}
+.comm-area .dl-content dd .status-d60000{
+	color: #d60000;
+}
+
+/* 
+ *
+ *  @description: 个人信息
+ *  @author: zyc 
+ *  @update: name (2016-08-31) 
+ *  Copyright ambuf. All Rights Reserved.
+ * ***************************************************************************
+ */
+.personal-infor{
+	background: #FFFFFF;
+	padding-bottom: 14px;
+}
+.personal-infor .personal-title-text01{
+	color: #0087b4;	
+}
+.personal-infor .header{
+	width: 120px;
+	height: 120px;
+	margin: 0 auto;
+	border: 1px solid #f3f3f4;
+	border-radius: 60px;
+	background: #f5f5f5;
+}
+.personal-infor .header img{
+	width: 100%;
+	height: 100%;
+}
+.personal-infor .header-list{}
+.personal-infor .header-list li{
+	padding: 5px 0;
+	text-align: center;
+}
+.personal-infor .header-list li a.userOperate{
+	padding: 0 20px;
+	color: #0087b4;
+}
+.personal-infor .header-list li a.userOperate:hover{
+	color: #ff6c60;
+}
+
+ul.module-handle{
+	background: #FFFFFF;	
+}
+ul.module-handle li{
+	position: relative;
+	height: 62px;
+	line-height: 62px;
+	padding-left: 48px;
+	background: #FFFFFF;
+	border-bottom: 1px solid #f3f3f4;	
+}
+ul.module-handle li .nav-icon-box{
+	position: absolute;
+	top: 16px;
+	left: 0;
+	width: 48px;
+	height: 30px;
+	background-image: url(images/icons.png);
+	background-repeat: no-repeat;
+}
+ul.module-handle li a{
+	color: #0087b4;
+}
+ul.module-handle li .nav-remind-box{
+	position: absolute;
+	top: 5px;
+	left: 105px;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	background-image: url(images/icons.png);
+	background-repeat: no-repeat;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+

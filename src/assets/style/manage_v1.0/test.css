@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+@import "../common/reset.css";
+@import "../common/frame.css";
+.bdBg{
+	background: #e2e2e2;
+}
+.bugleClient-left{
+	position: absolute;
+	top: 8px;
+	bottom: 8px;
+	left: 8px;
+	width: 190px;
+	background: #f6f6f6;
+	z-index: 2;
+}
+ul.bugleClient-left-list{
+	width: 204px;
+	position: relative;
+	left: -5px;
+}
+
+ul.bugleClient-left-list li.visited{
+	border: 1px solid #6dc6fe;
+	border-right: none;
+	background: #FFFFFF;
+	position: relative;
+}
+ul.bugleClient-left-list li.visited a{
+	font-weight: bold;
+}
+ul.bugleClient-left-list li a{
+	display: block;
+	padding: 5px 0 5px 10px;
+	margin: 0 8px 0 5px;
+}
+ul.bugleClient-left-list li a:hover{
+		
+}
+
+.bugleClient-right{
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	bottom: 8px;
+	left: 206px;
+	background: #FFFFFF;
+	border: 1px solid #6dc6fe;
+}
+.bugleClient-right-inner{
+	position: absolute;
+	top: 36px;
+	right: 10px;
+	bottom: 10px;
+	left: 10px;
+	overflow: hidden;
+}
+.bugleClient-elem-field{
+	border: 1px solid #e2e2e2;;
+}
+.bugleClient-elem-field legend{
+	margin-left: 20px;
+    padding: 0 10px;
+    font-size: 16px;    
+    font-weight: 300;
+}
+.bugleClient-elem-field-box{
+	padding: 0 8px 2px 8px;
+}
+.bugle-wrapper{
+	width: 100px;
+	height: 65px;
+	text-align: center;
+	float: left;
+	display: inline;
+	margin-left: 5px;
+}
+.bugle-inner{
+	height: 44px;
+}
+.bugle-ip{
+	font-size: 12px;
+}
+.bugle-inner-null .bugle-inner{
+	background: url(images/bugles.png) center top no-repeat;
+}
+.bugle-inner-null .bugle-ip{
+	color: #8a8a8a;
+}
+.bugle-inner-start .bugle-inner
+,.bugle-inner-init .bugle-inner{
+	cursor: pointer;
+}	
+.bugle-inner-start .bugle-inner{
+	background: url(images/bugles.png) center bottom no-repeat;
+}
+.bugle-inner-start .bugle-ip{
+	color: #34ab00;
+}
+.bugle-inner-init .bugle-inner{
+	background: url(images/bugles.png) center center no-repeat;
+}
+.bugle-taskBox{
+	position: absolute;
+	top: 170px;
+	left: 0;
+	right: 0;
+	bottom: 35px;
+}
+.bugle-taskBox .bugleClient-elem-field{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom:0;
+}
+.bugle-taskBox .bugleClient-elem-field-box{
+	position: absolute;
+	top:35px;
+	right: 8px;
+	bottom: 2px;
+	left: 8px;
+}
+.bugle-taskBox-button{
+	
+}
+.bugle-taskBox-list{
+	position: absolute;
+	top:35px;
+	right: 0;
+	bottom: 6px;
+	left: 0;
+	background: #F0AD4E;
+	overflow: auto;
+}
+.bugle-taskBox-addlist-button{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	text-align: right;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+    <style type="text/css">
+    	.mui-card-content-inner p.title{
+    		color: #428bca;
+    	}
+      .nowrap {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+      }
+      .mui-bar-tab{
+        height: 40px;
+      }
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+	<h1 class="mui-title">工作坊</h1>
+</header>
+<nav class="mui-bar mui-bar-tab">
+  <div class="mui-content-padded">
+  <p style="text-align: center">北京众恒志信科技开发股份有限公司承建</p>
+  </div>
+</nav>
+<div id="listContent" class="mui-content">
+
+</div>
+<script id="list-temp" type="text/html">
+  {{each data}}
+  <div class="mui-card">
+    <a href="workshopDetail.html?workshopsId={{$value.workshopsId}}&roomId={{$value.roomId}}&workshopsName={{$value.workshopsName}}" class="mui-navigate-right">
+      <div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(/server/{{$value.thumbnailPath}})"></div>
+      <div class="mui-card-content">
+        <div class="mui-card-content-inner">
+          <p class="title">{{$value.workshopsName}}</p>
+          <div class="nowrap" style="color: #333;">{{#$value.summary}}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {{/each}}
+</script>
+<script src="js/template-web.js"></script>
+<script src="js/util.js"></script>
+<script>
+  /**
+   * 获取工作坊的列表
+   */
+  function getWorkList(data){
+    if (!data) return;
+    var html = template('list-temp', {data: data,http:evn.http});
+    document.getElementById("listContent").innerHTML = html;
+  }
+
+  mui.ajax(api.workshopsList.path,{
+    success:function (res) {
+      var flag = handleAjaxError(res["status"]["code"], res["status"]["msg"]);
+      if (!flag) {
+        var data = res.data;
+        getWorkList(data);
+      }
+    },
+    error:function () {
+
+    }
+  })
+</script>
+</body>
+</html>

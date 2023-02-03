@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>进修生报名</title>
+  <link rel="stylesheet" href="/static/inStudyRegister/style/index.css">
+</head>
+
+<body>
+  <!-- 进修生报名表 -->
+  <div class="inStudyRegister">
+    <form id="form">
+      <table id="formTable" class="inStudyRegister">
+        <thead>
+          <tr class="place">
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <p class="text required"><span>*</span>姓名</p>
+            </td>
+            <td>
+              <div class="input">
+                <input name="userName" type="text" style="border: none;outline: none;" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td>
+              <p class="text">性别</p>
+            </td>
+            <td>
+              <div class="input">
+                <input name="gender" id="gender1" type="radio" value="BOY" checked> <label for="gender1">男</label>
+                <input name="gender" id="gender2" type="radio" value="GIRL"> <label for="gender2">女</label>
+              </div>
+            </td>
+            <td>
+              <p class="text">年龄</p>
+            </td>
+            <td>
+              <div class="input">
+                <input name="age" type="text" value="" style="border: none;outline: none;">
+                <input type="hidden" name="photo">
+              </div>
+            </td>
+            <td colspan="2" rowspan="4" class="picBox">
+              <label for="files">
+                <div id="photo" class="photo"></div>
+              </label>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">
+                学历
+              </div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="recordSchooling" type="text" value="" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td>
+              <div class="text required">
+                <span>*</span>
+                职称
+              </div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="title" type="text" value="" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td>
+              <div class="text required">
+                <span>*</span>
+                执业资格
+              </div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="professionalQualification" type="text" value="" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">
+                健康状况
+              </div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="health" type="text" value="" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td>
+              <div class="text">
+                是否党员
+              </div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="partyMember" type="radio" id="partyMember1" value="Y" checked><label for="partyMember1">是</label>
+                <input name="partyMember" type="radio" id="partyMember2" value="N"><label for="partyMember2">否</label>
+              </div>
+            </td>
+            <td>
+              <div class="text">职务</div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="position" type="text" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text required"><span>*</span>邮箱</div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input name="email" type="text" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td>
+              <div class="text required"><span>*</span>手机号</div>
+            </td>
+            <td>
+              <div class="input">
+                <input name="phone" type="text" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text required"><span>*</span>进修科目</div>
+            </td>
+            <td class="input" colspan="3">
+              <select id="course" class="course" name="managementIds" style="border: none;outline: none;background: none;"></select>
+              <input type="hidden" name="courseNames">
+            </td>
+            <td>
+              <div class="text">是否住宿</div>
+            </td>
+            <td class="input" colspan="3">
+              <input name="whehterAccommodation" type="radio" id="whehterAccommodation1" value="Y" checked><label for="whehterAccommodation1">是</label>
+              <input name="whehterAccommodation" type="radio" id="whehterAccommodation2" value="N"><label for="whehterAccommodation2">否</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text required"><span>*</span>单位</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="workName" style="border: none;outline: none;">
+            </td>
+            <td>
+              <div class="text required"><span>*</span>单位地址</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="workAddress" style="border: none;outline: none;">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">邮政编码</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="zipCode" style="border: none;outline: none;">
+            </td>
+            <td>
+              <div class="text required"><span>*</span>医教处（科）电话</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="psychiatryPhone" style="border: none;outline: none;">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">职业医师证书编号</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="doctorCertificateNumber" style="border: none;outline: none;">
+            </td>
+            <td>
+              <div class="text">职业机构登记证号</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="institutionsRegistrationNumber" style="border: none;outline: none;">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">何时参加工作</div>
+            </td>
+            <td class="input" colspan="3">
+              <input type="text" name="woirkTime" id="woirkTime" readonly style="border: none;outline: none;">
+            </td>
+            <td>
+              <div class="text">现在工作单位等级</div>
+            </td>
+            <td class="input" colspan="3">
+              <input id="workLevel1" type="radio" name="workLevel" value="三级" checked><label for="workLevel1">三级</label>
+              <input id="workLevel2" type="radio" name="workLevel" value="二级"><label for="workLevel2">二级</label>
+              <input id="workLevel3" type="radio" name="workLevel" value="甲等"><label for="workLevel3">甲等</label>
+              <input id="workLevel4" type="radio" name="workLevel" value="乙等"><label for="workLevel4">乙等</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="5" class="titleBox">
+              <div class="text">主学历</div>
+            </td>
+            <td colspan="2">
+              <div class="text">起止年月</div>
+            </td>
+            <td colspan="3">
+              <div class="text">学校名称</div>
+            </td>
+            <td colspan="2">
+              <div class="text">备注</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.0.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.0.type" value="SCHOOL">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.0.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.0.note" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.1.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.1.type" value="SCHOOL">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.1.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.1.note" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.2.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.2.type" value="SCHOOL">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.2.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.2.note" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.3.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.3.type" value="SCHOOL">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.3.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.3.note" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td rowspan="5" class="titleBox">
+              <div class="text">主要经历</div>
+            </td>
+            <td colspan="2">
+              <div class="text">起止年月</div>
+            </td>
+            <td colspan="3">
+              <div class="text">工作单位名称</div>
+            </td>
+            <td colspan="2">
+              <div class="text">职称</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.4.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.4.type" value="WORK">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.4.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.4.title" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.5.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.5.type" value="WORK">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.5.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.5.title" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.6.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.6.type" value="WORK">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.6.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.6.title" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.7.beiginEndTime" class="beiginEndTime" readonly style="border: none;outline: none;">
+                <input type="hidden" name="eduStudySubjectsDetails.7.type" value="WORK">
+              </div>
+            </td>
+            <td colspan="3">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.7.name" style="border: none;outline: none;">
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="input">
+                <input type="text" name="eduStudySubjectsDetails.7.title" style="border: none;outline: none;">
+              </div>
+            </td>
+          </tr>
+
+          <!-- 政治表现 -->
+          <tr>
+            <td>
+              <div class="text">政治表现</div>
+            </td>
+            <td colspan="7">
+              <input type="text" name="politicalPerformance" class="input" style="border: none;outline: none;">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="text">现有业务能力</div>
+            </td>
+            <td colspan="7">
+              <input type="text" name="existingBusinessAbility" class="input" style="border: none;outline: none;">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="text">进修专业及要求</div>
+            </td>
+            <td colspan="7">
+              <input type="text" name="studyRequirements" class="input" style="border: none;outline: none;">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">外语水平计算机等级</div>
+            </td>
+            <td colspan="7">
+              <input type="text" name="languageLevelComputerLevel" class="input" style="border: none;outline: none;">
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="8" align="center">
+              <div class="text required">
+                <span>*</span>
+                <b>进修时间：</b>
+                <input id="studyTime1" type="radio" name="studyTime" value="HALFTYEAR" checked><label for="studyTime1">半年</label>
+                <input id="studyTime2" type="radio" name="studyTime" value="AYEAR"><label for="studyTime2">一年</label>
+
+                <span style="margin-left: 10px">*</span>
+                <b>报到时间：</b>
+                <input id="checkInMonth2" type="radio" name="checkInTimeMonth" value="2" checked><label for="checkInMonth2"
+                  style="margin-left:0">3月</label>
+                <input id="checkInMonth5" type="radio" name="checkInTimeMonth" value="5"><label for="checkInMonth5">6月</label>
+                <input id="checkInMonth8" type="radio" name="checkInTimeMonth" value="8"><label for="checkInMonth8">9月</label>
+                <input type="text" readonly id="checkInTime2" class="border checkInTime" style="margin-left: 10px;width: 100px;">
+                <input type="text" readonly id="checkInTime5" class="border checkInTime" style="margin-left: 10px;width: 100px;">
+                <input type="text" readonly id="checkInTime8" class="border checkInTime" style="margin-left: 10px;width: 100px;">
+                <input type="hidden" name="checkInTime">
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="text">
+                备注
+              </div>
+            </td>
+            <td colspan="7">
+              <div class="text">
+                1.寄进修表时请附医师执业证书、资格证书、职称证书、学历证书复印件；进修妇产科还需要加寄助产资格证书。<br>
+                2.欲知进修科目详情请上网查询，点击南京鼓楼医院（www.njglyy.com）-教学培训-进修指南-进修科目、进修生管理规定、进修表格。
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <!-- 验证码 -->
+      <input type="hidden" name="code">
+      <div id="pictureBox">
+        <!-- 身份证 -->
+        <div class="idPic">
+          <label for="files">
+            <div class="left face" id="cdimg1Url"></div>
+          </label>
+          <label for="files">
+            <div class="right con" id="cdimg2Url"></div>
+          </label>
+          <input type="hidden" name="cdimg1Url">
+          <input type="hidden" name="cdimg2Url">
+        </div>
+        <!-- 证书 -->
+        <div class="idPic">
+          <label for="files">
+            <div class="left dc" id="doctorCertificateUrl"></div>
+          </label>
+          <label for="files">
+            <div class="right ir" id="institutionsRegistrationUrl"></div>
+          </label>
+          <input type="hidden" name="doctorCertificateUrl">
+          <input type="hidden" name="institutionsRegistrationUrl">
+        </div>
+      </div>
+      <!-- 其他附件 -->
+      <div class="files">
+        <span>附件：</span>
+        <span class="fileName" id="fileInfo"></span>
+        <label for="files" class="fileLabel" id="uploadFileInfo">上传</label>
+        <input type="hidden" name="fileInfo">
+      </div>
+      <input id="files" class="fileInput" type="file">
+    </form>
+    <div class="btnBox">
+      <a href="#" id="downPDF" class="btn">下载PDF申请表</a>
+      <a href="#" id="printPDF" class="btn">打印</a>
+      <a href="javascript:;" id="button" class="btn">提交</a>
+    </div>
+  </div>
+
+  <script src="/static/inStudyRegister/jquery/jquery.min.js"></script>
+  <script src="/static/inStudyRegister/jquery/jquery.cookie.min.js"></script>
+  <script src="/static/inStudyRegister/layer/layer.js"></script>
+  <script src="/static/inStudyRegister/laydate/laydate.js"></script>
+  <script src="/static/inStudyRegister/pdf/pdfmake.min.js"></script>
+  <script src="/static/inStudyRegister/pdf/vfs_fonts.js"></script>
+  <script src="/static/inStudyRegister/html2canvas/html2canvas.min.js"></script>
+  <script src="/static/inStudyRegister/pdf/index.js"></script>
+  <script src="/static/ueditor1_4_3_3/ueditor.config.js"></script>
+  <script>
+    // 引入--访问前缀--组件
+
+    var now = new Date();
+    var regObj = null;
+    // 何时参加工作
+    laydate.render({
+      elem: '#woirkTime',
+      showBottom: false,
+      theme: 'grid',
+      trigger: 'click',
+    });
+
+
+    $(function () {
+      // 起止时间
+      lay('.beiginEndTime').each(function () {
+        laydate.render({
+          elem: this,
+          type: 'month',
+          range: '~',
+          format: 'yyyy-MM',
+          trigger: 'click',
+        });
+      });
+
+      var checkArr = [{
+          key: "userName",
+          name: "姓名"
+        },
+        {
+          key: "title",
+          name: "职称"
+        },
+        {
+          key: "professionalQualification",
+          name: "执业资格"
+        },
+        {
+          key: "email",
+          name: "邮箱",
+          reg: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/,
+        },
+        {
+          key: "phone",
+          name: "手机号",
+          reg: /^1(3|4|5|7|8)\d{9}$/,
+        },
+        {
+          key: "managementIds",
+          name: "进修科目"
+        },
+        {
+          key: "workName",
+          name: "单位"
+        },
+        {
+          key: "workAddress",
+          name: "单位地址"
+        },
+        {
+          key: "psychiatryPhone",
+          name: "医教处电话"
+        },
+        {
+          key: "studyTime",
+          name: "进修时间"
+        },
+        {
+          key: "checkInTime",
+          name: "报到时间"
+        },
+      ];
+      // 提交
+      $("#button").click(function () {
+        regObj = getFormJson("#form");
+        if (!checkData(regObj, checkArr)) {
+          return
+        }
+        register()
+      });
+
+      // 打印
+      $('#printPDF').click(function () {
+        regObj = getFormJson("#form");
+        if (!checkData(regObj, checkArr)) {
+          return
+        }
+        setTimeout(function () {
+          printPDF();
+        }, 100);
+      });
+
+      // 下载
+      $('#downPDF').click(function () {
+        regObj = getFormJson("#form");
+        if (!checkData(regObj, checkArr)) {
+          return
+        }
+        setTimeout(function () {
+          downPDF();
+        }, 100);
+      });
+
+      $.each(['photo', 'cdimg1Url', 'cdimg2Url', 'doctorCertificateUrl', 'institutionsRegistrationUrl'], function (
+        i, key) {
+        $('#' + key).on('click', function () {
+          // 上传图片
+          uploadFile(key, true);
+        })
+      })
+      $('#uploadFileInfo').click(function () {
+        // 上传附件
+        uploadFile('fileInfo', false);
+      })
+
+      // 报到时间月份切换
+      $('input[name=checkInTimeMonth]').change(function () {
+        getCheckInTime($(this).val())
+      })
+
+      getCourse();
+      getCheckInTime();
+    });
+
+    // 获取报到时间
+    function getCheckInTime(month) {
+      var ny = now.getFullYear(); // 年份
+      var nm = now.getMonth(); // 月份
+      var nd = now.getDate(); // 天数
+      var sm = (nm < 3 && 2) || (nm < 6 && 5) || (nm < 9 && 8) || 2;
+
+      // 有效的年月日
+      var y = ny;
+      var m = month && (+month) || sm;
+      var d = nd;
+
+      // 下个月的第一天
+      var nxy = ny;
+      var nxm = nm;
+      var nxd = 1;
+      if (nxm + 1 > 11) {
+        nxm = 0;
+        nxy += 1;
+      } else {
+        nxm += 1
+      }
+
+      // 本月的最后一天
+      var ld = new Date(new Date(nxy, nxm, nxd).getTime() - 1000 * 60 * 60 * 24).getDate();
+
+      // 选择的月份小于当前月份
+      if (month && m < nm || nm > sm) {
+        y += 1; // 下一年
+        d = 1; // 下一年的1号
+      }
+
+      // 显示指定的月份选择框
+      $('#checkInTime' + m).addClass('active').siblings('.checkInTime').removeClass('active');
+
+      if (!month) {
+        $('#checkInMonth' + sm).prop('checked', true);
+      }
+
+      // 报到日期
+      laydate.render({
+        elem: '#checkInTime' + m,
+        min: y + '-' + (m + 1) + '-1', // 第一天
+        max: y + '-' + (m + 1) + '-' + ld, // 最后一天
+        value: new Date(y, m, d),
+        showBottom: false,
+        theme: 'grid',
+        trigger: 'click',
+        done: function (value) {
+          setCheckInTimeVal(value)
+        }
+      });
+
+      // 初始化报到日期
+      setCheckInTimeVal(y + '-' + zerofill(m + 1) + '-' + zerofill(d));
+    }
+
+    // 设置报到时间
+    function setCheckInTimeVal(val) {
+      $('input[name=checkInTime]').val(val)
+    }
+
+    // 补零
+    function zerofill(val) {
+      return val.toString().length < 2 ? '0' + val : val
+    }
+
+    // 注册提交
+    function register() {
+      $.ajax({
+        url: '/api' + globlURLPrefix.inStudy + '/inStudy/register',
+        data: JSON.stringify(regObj),
+        type: 'post',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (request) {
+          request.setRequestHeader("Token", $.cookie('Token'));
+        },
+        success: function (res) {
+          if (res.status.code == 0) {
+            layer.msg('报名成功');
+            // 重置
+            $("#form")[0].reset();
+            var fileShowDom = ['photo', 'cdimg1Url', 'cdimg2Url', 'doctorCertificateUrl',
+              'institutionsRegistrationUrl', 'fileInfo'
+            ];
+            $.each(fileShowDom, function (i, key) {
+              $('#' + key).html('')
+            });
+            docDefinition.content = [];
+            regObj = null;
+          } else {
+            layer.msg(res.status.msg || '未知错误');
+          }
+        },
+        error: function () {
+          layer.msg('报名失败');
+        },
+      })
+    }
+
+    // 获取进修科目选项
+    var optionObj = {};
+
+    function getCourse() {
+      var course = $("#course");
+      var managementId = '';
+      $.ajax({
+        //      url:"/api/studysubject/list",
+        url: "/api" + globlURLPrefix.passport + "/hospital/dept/getThreeFourDepthHosiptalDep",
+        type: 'get',
+        dataType: "json",
+        success: function (res) {
+          if (res.status.code == 0) {
+            var options = [];
+            for (var i = 0; i < res.data.length; i++) {
+              //            if (i==0){
+              //              managementId = res.data[i].managementId;
+              //              options.push('<option value="'+ res.data[i].managementId +'" selected>'+ res.data[i].courseName +'</option>');
+              //            }else{
+              //              options.push('<option value="'+ res.data[i].managementId +'">'+ res.data[i].courseName +'</option>');
+              //            }
+              if (i == 0) {
+                managementId = res.data[i].id;
+                options.push('<option value="' + res.data[i].id + '" selected>' + res.data[i].name + '</option>');
+              } else {
+                options.push('<option value="' + res.data[i].id + '">' + res.data[i].name + '</option>');
+              }
+
+              optionObj[res.data[i].id] = res.data[i];
+
+              if (res.data[i].childList.length) {
+                for (var j = 0, n = res.data[i].childList; j < n.length; j++) {
+                  optionObj[n[j].id] = n[j];
+                  options.push('<option value="' + n[j].id + '">　' + n[j].name + '</option>')
+                }
+              }
+            }
+            course.html(options.join(''));
+            $('input[name=courseNames]').val(optionObj[managementId].name);
+            $("#course").on('change', function () {
+              $('input[name=courseNames]').val(optionObj[$("#course").val()].name);
+            })
+          } else {
+            layer.msg(res.status.msg);
+          }
+        },
+        error: function () {
+          layer.msg('进修科目获取异常，请重试');
+        }
+      })
+    }
+
+    // 必填项检测
+    function checkData(obj, arr) {
+      for (var i = 0; i < arr.length; i++) {
+        if (obj[arr[i].key] == '') {
+          layer.msg(arr[i].name + '必须填写');
+          return false
+        }
+        if (arr[i].reg && !(arr[i].reg.test(obj[arr[i].key]))) {
+          layer.msg('请输入有效的' + arr[i].name);
+          return false
+        }
+      }
+      return true
+    }
+
+
+    // 上传文件检测
+    function uploadFile(name, isImg) {
+      var fileInput = $('#files');
+      var imgRegex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
+      var docRegex = /(.doc|.docx|.pdf|.zip|.rar)$/;
+
+      fileInput.off('change').on('change', function (e) {
+        var data = new FormData();
+        let files = $('#files')[0].files[0];
+        data.append('file', files);
+        data.append('mini', isImg ? 'true' : 'false');
+        if (isImg) {
+          // 图片
+          if (imgRegex.test(files.name.toLowerCase())) {
+            upload(data, name, isImg)
+          } else {
+            layer.msg("只能上传图片")
+          }
+          //      }else if (docRegex.test(files.name.toLowerCase())){
+          // 文件
+          //        upload(data,name,isImg,files.name)
+        } else { // 附件不限制任何格式
+          upload(data, name, isImg, files.name)
+          //        layer.msg("只能上传doc、docx、pdf文件")
+        }
+      })
+    }
+
+    // 上传
+    function upload(data, name, isImg, fileName) {
+      $.ajax({
+        url: "/api" + globlURLPrefix.passport + "/file//upload/static",
+        type: 'post',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+          if (res.status.code != 0) {
+            layer.msg(res.status.msg)
+            return
+          }
+          var preview = $('#' + name);
+          $('input[name=' + name + ']').val(res.data.relativePathFile);
+          if (isImg) {
+            preview.html('<img src="' + res.data.staticUrl + res.data.relativePathFile + '">')
+          } else {
+            preview.html('<span>' + fileName + '</span>')
+          }
+        },
+        error: function () {
+          layer.msg('上传出错');
+        }
+      })
+    }
+
+
+    /**
+     * 表单转json对象
+     * @param form
+     * @returns {}
+     * 默认name为键，value为值
+     * name同名则返回此name的值数组
+     * name中有.的表示为对象数组，格式为：对象名称.索引.键
+     */
+    function getFormJson(form) {
+      var o = {};
+      var a = $(form).serializeArray();
+      $.each(a, function () {
+        if (o[this.name] !== undefined) {
+          if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+          }
+          o[this.name].push(this.value || '');
+        } else {
+          if (this.name.indexOf('.') > -1) {
+            var t = this.name.split('.');
+            if (!o[t[0]]) {
+              o[t[0]] = []
+            }
+            if (!o[t[0]][t[1]]) {
+              o[t[0]][t[1]] = {}
+            }
+            o[t[0]][t[1]][t[2]] = this.value || ''
+          } else {
+            o[this.name] = this.value || '';
+          }
+        }
+      });
+      return o;
+    }
+
+    // 报名Url： /static/inStudyRegister.html
+
+  </script>
+</body>
+
+</html>

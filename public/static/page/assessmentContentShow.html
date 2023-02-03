@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta http-equiv="Cache-control" content="no-cache" />
+  <meta http-equiv="Cache" content="no-cache" />
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB",
+        "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+      font-size: 26px;
+    }
+
+    ul,
+    ol li {
+      list-style: none;
+    }
+
+    #contentBox {
+      padding: 20px;
+    }
+
+    #contentBox h2 {
+      margin-bottom: 20px;
+    }
+
+    #contentBox img {
+      max-width: 100%;
+    }
+
+    #contentBox li {
+      margin-bottom: 2vh;
+    }
+
+    .errTips {
+      line-height: 100px;
+    }
+
+    .titleIndex {}
+
+  </style>
+</head>
+
+<body>
+  <!-- 终端病例抽题专用页面 -->
+  <ul id="contentBox"></ul>
+  <script src="../inStudyRegister/jquery/jquery.min.js"></script>
+  <script src="/static/ueditor1_4_3_3/ueditor.config.js"></script>
+  <script>
+    $(loadContent());
+
+    /**
+     * 获取内容
+     */
+    function loadContent() {
+      var contentId = getParams2URL("contentId");
+      var hasVal = checkParams(contentId);
+      hasVal ? getContent(contentId) : setContent(hasVal);
+    }
+
+    /**
+     * 检测参数是否正确
+     */
+    function checkParams(contentId) {
+      return !isNaN(contentId) && /^\d+$/.test(contentId);
+    }
+
+    /**
+     * 通过URL获取参数
+     */
+    function getParams2URL(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      return r != null ? decodeURI(r[2]) : null; //返回参数值
+    }
+
+    /**
+     * 获取内容
+     */
+    function getContent(contentId) {
+      $.ajax("/api" + globlURLPrefix.osce + "/scene/getContent", {
+        data: {
+          contentId: contentId
+        },
+        dataType: "json",
+        success: setContent,
+        error: setContent(false)
+      });
+      console.log(setContent);
+    }
+
+    /**
+     * 设置内容
+     * @param data
+     */
+    function setContent(res) {
+      console.log(res)
+      var contentBox = $("#contentBox");
+      var dom = [];
+      if (res instanceof Object) {
+        if (res.data) {
+          for (var index in res.data) {
+            dom.push("<li>");
+            dom.push('<h2 class="titleIndex">第' + (+index + 1) + "题</h2>");
+            dom.push(res.data[index]);
+            dom.push("</li>");
+          }
+        } else {
+          dom.push('<li><p class="errTips">暂无数据</p></li>');
+        }
+      } else {
+        dom.push(
+          '<li><p class="errTips">' +
+          (res ? "加载中..." : "数据加载失败") +
+          "</p></li>"
+        );
+      }
+      contentBox.html(dom.join(""));
+    }
+
+  </script>
+</body>
+
+</html>

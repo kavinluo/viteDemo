@@ -1,0 +1,45 @@
+/*
+* 基础教务管理 -  图片查看
+*/
+.swiper-img-body{
+  width: 1000px;
+  margin: 0 auto;
+  /*padding: 20px;
+  background: #e6e6e6;*/
+}
+.swiper-img-box{
+  position: relative;
+}
+.swiper-img-left{
+  width: 800px;
+  height: 500px;
+  border: 1px solid #F9FAFC;
+}
+.swiper-img-right{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background: #273b5c;
+  width: 180px;
+  height: 500px;
+  border: 1px solid #F9FAFC;
+  overflow: hidden;
+}
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+.gallery-thumbs {
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+.gallery-thumbs .swiper-slide {
+  opacity: 0.4;
+}
+.gallery-thumbs .swiper-slide-active {
+  opacity: 1;
+}
+.gallery-thumbs .swiper-slide-active img{
+  border: 3px solid #000000;
+}

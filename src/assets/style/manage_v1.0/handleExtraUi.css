@@ -1,0 +1,267 @@
+/*
+*layui辅助元素
+
+*
+*
+*
+*
+*/
+
+
+/*引用区块 - 默认风格*/
+.layui-elem-quote {
+  margin-bottom: 10px;
+  padding: 15px;
+  line-height: 22px;
+  border-left: 5px solid #009688;
+  border-radius: 0 2px 2px 0;
+  background-color: #f2f2f2;
+}
+/*引用区块 - 一般风格
+*/
+.layui-quote-nm {
+  border-color: #e2e2e2;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  background: 0 0;
+}
+.layui-elem-quote {
+  margin-bottom: 10px;
+  padding: 15px;
+  line-height: 22px;
+  border-left: 5px solid #009688;
+  border-radius: 0 2px 2px 0;
+  background-color: #f2f2f2;
+}
+
+/*字段集区块 - 默认风格*/
+
+.layui-elem-field {
+
+  padding: 10px 0 10px 0;
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+}
+.layui-elem-field legend {
+  margin-left:20px;
+  padding: 0 10px;
+  font-weight: 300;
+}
+.layui-field-box {
+  padding: 10px 15px;
+}
+/*字段集区块 - 带标题的横线*/
+.layui-field-title {
+  /*margin: 10px 0 20px;*/
+  border: none;
+  border-top: 1px solid #e2e2e2;
+}
+
+.layui-field-title .layui-field-box {
+  padding: 10px 0;
+}
+/*纯圆角*/
+.layui-inline {
+  position: relative;
+  display: inline-block;
+}
+.layui-inline .layui-circle {
+  border-radius: 100%;
+}
+.layui-inline img {
+  display: inline-block;
+  border: none;
+}
+
+/*
+* elementUI tree 外观
+*/
+/*---选中状态背景色---*/
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+  /*background-color: #ff0000;*/
+}
+.el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content span {
+  font-weight:700 ;
+  color:#20a0ff;
+}
+  /*---鼠标经过状态背景色---*/
+.el-tree-node__content:hover {
+  /*background: #ff00ff;*/
+}
+
+/*---默认图标---*/
+.el-tree-node__expand-icon {
+  cursor: pointer;
+  width: 25px;
+  height: 100%;
+  margin-left: 3px;
+  border: 6px solid transparent;
+  border-right-width: 0;
+  border-left-color: #550066;
+  border-left-width: 7px;
+  -ms-transform: rotate(0);
+  transform: rotate(0);
+  transition: transform .3s ease-in-out;
+
+  opacity: 0;
+}
+
+/*---展开图标---*/
+.el-tree-node__expand-icon.expanded {
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+/*---叶子界面---*/
+.el-tree-node__expand-icon.is-leaf {
+  border-color: transparent;
+  cursor: default;
+}
+
+/*---自定义图片---*/
+.ambuf-tree-icon{
+  margin-left:-30px;width:25px;display:inherit;line-height:inherit;
+  color: #20a0ff;
+  font-size: 22px;
+  vertical-align: middle;
+}
+
+
+/*档案管理修改form样式*/
+.archivesEdit .el-form-item__content{
+  margin-left: 0 !important;
+
+}
+.archivesEdit .cell{
+   padding-left: 3px;
+}
+.archivesEdit .el-form-item{
+
+  margin: 3px;
+}
+.archivesEdit .input-x{
+
+  width: 40px;
+}
+
+
+/*-----ivew modal confirm 垂直居中-----*/
+/*.ivu-modal{
+  top:50%;
+  margin-top: -80px;
+}*/
+
+/*-----文字水平排列方式-----*/
+.alginLeft{
+  text-align: left;
+}
+.alginCenter{
+  text-align: center;
+}
+.alginRight{
+  text-align: right;
+}
+
+/*--查看页面使用--*/
+.row-layout .el-row{
+  margin-bottom: 20px;
+}
+
+
+/*---权限设置---*/
+.firstModBox{
+  padding: 0;
+}
+.subModBox,.subModBox .subModBox{
+  padding-left: 30px;
+}
+.firstModBox,.subModBox{
+  max-width: 800px;
+}
+
+
+/*
+echarts
+*/
+.chart-panel{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 20px;
+  left: 250px;
+  padding: 10px;
+  min-width:500px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+/*
+elementUI table 表头修改
+*/
+table thead .tabBiasLine{
+  background-image: url("images/biasLine.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+table thead .tabBiasLine div{
+  background: none;
+}
+table thead .tabBiasLine div.cell{
+  padding: 0 8px;
+}
+
+table td.valiTableStyle .el-form-item{
+  margin-bottom: 0;
+}
+table td.valiTableStyle .el-form-item__error{
+  padding: 5px 0;
+  position: inherit;
+}
+table td.clearPadding div.cell{
+  padding: 0 0;
+}
+
+
+/*
+elementUI 步骤条样式修改
+*/
+.el-step__head.is-text.is-process{
+  background-color: #20A0FF;
+  border-color: #20A0FF;
+}
+.el-step__title .is-process{
+  color: #20A0FF;
+}
+
+
+
+
+/*.el-select .el-input {
+  min-width: 110px;
+  width: inherit;
+}*/
+
+/*element 选择时间取消按钮隐藏
+*/
+.el-time-panel__footer .cancel{
+  display: none;
+}
+
+/*调节穿梭框 在火狐下如果宽度不够会把 全部字体 都变成省略号*/
+
+.my-select-user .ivu-transfer-list-content-item .ivu-checkbox span{
+  display:inline-block;
+}
+.my-select-user .ivu-transfer-list-content-item span{
+  display:  inline;
+}
+.my-select-user .ivu-transfer-list-content-item i{
+  margin-right: 7px;
+}
+
+/*ue编译器样式修改*/
+/* 课程简介 - 查看 */
+.showEd * {
+  line-height: inherit !important;
+}

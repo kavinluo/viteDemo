@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+  <title>倒计时</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      position: relative;
+      font-family: '微软雅黑', Arial, sans-serif;
+      color: #222;
+    }
+
+    ul li {
+      list-style: none;
+    }
+
+    .countDownBox {
+      width: 100%;
+      text-align: center;
+      font-size: 6vw;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-54%);
+    }
+
+    .countDownBox p {
+      font-size: 9vw;
+    }
+
+    .timeInfo {
+      padding: 20px;
+      font-size: 2vw;
+      overflow: hidden;
+    }
+
+    .timeInfo li {
+      width: 33.3%;
+      float: left;
+    }
+
+    #week {
+      text-align: center;
+    }
+
+    #times {
+      text-align: right;
+    }
+
+    #countDown {
+      color: red;
+    }
+
+    .copyRightInfo {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      font-size: 1.6vw;
+    }
+
+    .copyRightInfoText {
+      font-size: 1.6vw;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <ul class="timeInfo">
+    <li id="day">-</li>
+    <li id="week">-</li>
+    <li id="times">-</li>
+  </ul>
+  <div class="countDownBox">
+    第<span id="stationIndex">-</span>考站<br>
+    考试剩余时间<br>
+    <p id="countDown">
+      00:00:00
+    </p>
+  </div>
+  <!--<p class="copyRightInfoText">---</p>-->
+  <p class="copyRightInfo">北京众恒志信科技开发股份有限公司技术支持</p>
+  <script src="../inStudyRegister/jquery/jquery.min.js"></script>
+  <script src="/static/ueditor1_4_3_3/ueditor.config.js"></script>
+  <script>
+    $(function () {
+      setStationIndex();
+      loadTime();
+      loadNowTime();
+    });
+
+    var countDown = $('#countDown');
+    var week = ['日', '一', '二', '三', '四', '五', '六'];
+
+    function loadNowTime() {
+      getNowTime();
+      setInterval(function () {
+        getNowTime()
+      }, 1000);
+    }
+
+    function setStationIndex() {
+      var index = getParams2URL('index');
+      index = checkParams(index) ? index : 1;
+      $('#stationIndex').text(num2Str(index - 1));
+    }
+
+    function getNowTime() {
+      $.ajax('/api' + globlURLPrefix.passport + '/nowTime?time=' + new Date().getTime(), {
+        dataType: 'json',
+        success: function (res) {
+          var timeNum = parseInt(res.data);
+          var nowTimeStr = timestampToTime(timeNum);
+          $('#day').text(nowTimeStr.split(' ')[0]);
+          $('#week').text('星期' + week[new Date(timeNum).getDay()]);
+          $('#times').text(nowTimeStr.split(' ')[1]);
+        }
+      })
+    }
+
+    function loadTime() {
+      getTime();
+      setInterval(function () {
+        getTime()
+      }, 1000)
+    }
+
+    function getTime() {
+      $.ajax('/api' + globlURLPrefix.osce + '/stage/getTime?time=' + new Date().getTime(), {
+        dataType: 'json',
+        success: function (res) {
+          countDown.text(setTime(res.data))
+        }
+      })
+    }
+
+    function setTime(second) {
+      var arr = [],
+        h = 0,
+        m = 0,
+        s = 0;
+      if (second > 0) {
+        h = parseInt(second / (60 * 60));
+        m = parseInt((second - (h * 60 * 60)) / 60);
+        s = second - (h * 60 * 60) - (m * 60);
+      }
+      arr = [h, m, s];
+      arr.forEach(function (v, index) {
+        arr[index] = v < 10 ? '0' + v : v
+      })
+      return arr.join(':')
+    }
+
+    /**
+     * 检测参数是否正确
+     */
+    function checkParams(contentId) {
+      return !isNaN(contentId) && (/^\d+$/.test(contentId))
+    }
+
+    /**
+     * 通过URL获取参数
+     */
+    function getParams2URL(name) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'); //构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); //匹配目标参数
+      return (r != null ? decodeURI(r[2]) : null); //返回参数值
+    }
+
+    function num2Str(index) {
+      index += 1;
+      var text = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+      var str = [];
+      var bit = index % 10; // 个位
+      var ten = (index - bit) / 10; // 十位
+      ten > 1 && (str[0] = text[ten - 1]);
+      index > 9 && (str[1] = text[9]);
+      str[2] = (text[bit - 1]) || '';
+      return str.join('')
+    }
+
+    function timestampToTime(timestamp) {
+      var date = new Date(timestamp), //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '年',
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月',
+        D = date.getDate() + '日 ',
+        h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds(),
+        t = '上午';
+
+      t = h <= 12 ? '上午' : '下午';
+      h = h > 12 ? h - 12 : h;
+
+      h = h < 10 ? '0' + h : h;
+      m = m < 10 ? '0' + m : m;
+      s = s < 10 ? '0' + s : s;
+      return Y + M + D + t + h + ':' + m + ':' + s;
+    }
+
+  </script>
+</body>
+
+</html>
