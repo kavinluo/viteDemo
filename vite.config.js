@@ -68,7 +68,7 @@ export default defineConfig({
       },
       // 使用 proxy 实例
       '/api/': {
-        target: 'http://192.168.1.212:9090/',
+        target: 'http://192.168.1.91:9000',
         changeOrigin: true,
         // configure: (proxy, options) => {
         //   // proxy 是 'http-proxy' 的实例

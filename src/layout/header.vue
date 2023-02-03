@@ -127,7 +127,7 @@
 <script>
 let Util = null;
 // 修改密码弹窗
-import pwd from './password';
+import pwd from '@/views/password.vue';
 import personalInformation from './personalInformation'
 import showNotice from '../examinationManagement/notice/showNotice' // 通知公告内容
 

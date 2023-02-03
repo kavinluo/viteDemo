@@ -151,16 +151,16 @@
           <el-button class="submitBtn" style="width: 290px;" @click="verifyCode">确 定</el-button>
         </div>
       </div>
-      <div slot="footer"></div>
+      <template #footer></template>
     </Modal>
   </div>
 </template>
 <script>
-import headers from './common/header';
-import leftmenus from './common/leftmenus';
-import iframeView from './common/iframeView.vue';
+import headers from './header.vue';
+import leftmenus from './leftmenus.vue';
+import iframeView from './iframeView.vue';
 import QRCode from 'qrcode'
-import {utils} from "../libs/util";
+import {utils} from "@/utils/util";
 // import twolevelmenus from './common/twolevelmenu';
 /*
  * 给数据层级设置索引 [{parIdx:0,index:0},……]

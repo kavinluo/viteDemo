@@ -26,11 +26,14 @@ const router = createRouter({
   history: createWebHistory()
 })
 router.beforeEach((to) => {
-  const userMenus = getStaticData('userMenus') // 本地储存是否被删除
-  const userInfo = getStaticData('userInfo')
+  // const userMenus = getStaticData('userMenus') // 本地储存是否被删除
+  // const userInfo = getStaticData('userInfo')
   const Token = getCookie('Token')
   if (to.path !== '/login') {
-    if (!Token || !userMenus || !userInfo) {
+    // if (!Token || !userMenus || !userInfo) {
+    //   return '/login'
+    // }
+    if (!Token) {
       return '/login'
     }
   }

@@ -10,7 +10,7 @@ import { createStore, useStore as useVuexStore } from 'vuex'
 import user from './modules/user'
 import { getEnvs, login, getMenuTree, getUserInfo } from '@/api/common.js'
 // import { login } from '@/api/login.js'
-
+import router from '@/router'
 import { setStaticData, setCookie } from '@/utils/util'
 
 const store = createStore({
@@ -22,10 +22,13 @@ const store = createStore({
     return {
       envs: {},
       Token: '',
+      indexUrl: '',
+      routerPath: {},
       pagination: { // 分页信息
         pageSize: 10,
         curPage: 1
       },
+
       useInfo: null,
       menuData: null,
       HOST: null,
@@ -55,6 +58,27 @@ const store = createStore({
     changeUserInfo (state, data) {
       state.useInfo = data
     },
+
+    /**
+       * 设置路由默认首页地址
+       * @param state  {} 状态对象
+       *
+       * @param index string "/index/manage"
+    */
+      setIndexUrl (state, index) {
+        state.indexUrl = index;
+      },
+
+    /**
+       * 设置server返回的所有路由地址信息
+       * @param state  {} 状态对象
+       *
+       * @param pathObj {"/index/manage":"/index/manage",.....}
+   */
+
+  setRouterPath (state, pathObj) {
+    state.routerPath = pathObj;
+  },
     
     changerpageSize (state, pageSize) {
       state.pagination.pageSize = pageSize
@@ -98,22 +122,91 @@ const store = createStore({
         dispatch('getMenu') // 获取菜单
       }
     },
+    
 
     // 获取个人信息
-    async userInfoActions ({ commit, dispatch }) {
+    async userInfoActions ({ commit }) {
       const userinfo = await getUserInfo()
-      commit('userInfo', userinfo.data)
-      dispatch('changeUserInfo', userinfo.data)
+      if(userinfo && userinfo.data) {
+        setStaticData('userInfo', userinfo.data)
+        commit('changeUserInfo', userinfo.data)
+      }
     },
 
     // 获取菜单
-    async getMenu ({ commit }, payload) {
+    async getMenu ({ commit, dispatch }, payload) {
       const menuData = await getMenuTree(payload)
       if (menuData && menuData.data) { // 这里如果登录用户密码第二次会返回验证码信息，我们不需要
-        commit('changeMenu', menuData.data)
-        setStaticData('menuData', menuData.data)
+        // dispatch('setMeusData', menuData.data)
       }
     },
+
+    setMeusData({ commit, dispatch },data = []) {
+      // let data = responseData.data || [];
+      // debugger
+      if (data.length > 0) {
+        data = data[0].children;
+      }
+      //将设置完成的structureIndex赋值给 navs
+      let infos = { } //this.$store.getters.getUserInfo;
+      let index = ''
+      if (infos?.userType == 'STU') {
+        index = '/student'
+      } else {
+        index = '/manage'
+      }
+      if (data[0].children && data[0].children.length) {
+        let myData = data[0].children || [];
+        for (var i = 0; i < myData.length;) {
+          if (typeof myData[i].children != 'undefined') {
+            index += '/' + myData[i]['modName'];
+            myData = myData[i].children;
+          } else {
+            index += '/' + myData[i]['modName'];
+            break;
+          }
+        }
+      } else {
+        index += '/' + data[0].modName
+      }
+      // dispatch('setRouterPath', data, true) 
+      commit('setIndexUrl', index);
+      // commit('setRouterPath', this.routerPath);
+      commit('changeMenu', data)
+      console.log('menuData', data)
+      setStaticData('menuData', data)
+      console.log('index', index)
+      debugger
+      router.push(index);
+      
+    },
+
+    // setRouterPath({ commit, dispatch}, data, first, parItem) {
+    //   for (var i = 0, item; i < data.length; i++) {
+    //     item = data[i];
+    //     if (!item.children || !item.children.length) { //
+    //       item['path'] = '/manage/' + item['modName'];
+    //     }
+    //     if (first && !(!item.children || !item.children.length)) {
+    //       item['path'] = '/manage';
+    //       item['level'] = 1;
+    //     } else if (parItem) {
+    //       if (parItem['path'] == -1) {
+    //         item['path'] = parItem['modName'] + '/' + item.modName;
+    //       } else {
+    //         item['path'] = parItem['path'] + '/' + item.modName;
+    //       }
+    //       item['level'] = parItem['level'] + 1;
+    //     }
+    //     // this.routerPath[item['path']] = item['path'];
+    //     commit('setRouterPath', {[item['path']]: item['path']});
+    //     if (typeof item.children != 'undefined' && item.children.length > 0) {
+    //       dispatch('setRouterPath', item.children, false, item);
+    //     }
+    //   }
+    // },
+
+
     async updateRootInfo ({ commit }, payload) {
       commit('changerEvet', payload)
     },
@@ -141,7 +234,13 @@ const store = createStore({
     useInfo (state) {
       return `请叫我 ${state.name}`
     }
-  }
+  },
+  getIndexUrl: state => {
+    return state.indexUrl;
+  },
+  getRouterPath: state => {
+    return state.routerPath;
+  },
 })
 
 export function setupStore () {

@@ -8,15 +8,37 @@
 // import Index from '@/layout/index.vue'
 
 const routes = [
+  // {
+  //   path: '/manage',
+  //   name: 'manage',
+  //   redirect: '/manage/workIndex',
+  //   meta: {},
+  //   component: () => import(/* webpackChunkIndex: "Index" */'@/views/login.vue')
+  //   // children: []
+  // },
   {
     path: '/manage',
     name: 'manage',
     redirect: '/manage/workIndex',
-    meta: {},
-    component: () => import(/* webpackChunkIndex: "Index" */'@/views/login.vue')
+    meta: {
+       title: '水平测试考务管理系统',
+    },
+    component: () => import(/* webpackChunkIndex: "Index" */'@/layout/index.vue')
     // children: []
   },
+  {
+    path: '/manage',
+    name: 'manage',
+    meta: {
+      title: '水平测试考务管理系统',
+      requireAuth: true // 添加该字段，表示进入这个路由是需要登录的
+    },
+    
+    component: () => import(/* webpackChunkIndex: "Index" */'@/layout/index.vue'),
+    children: [
 
+    ]
+  },
   {
     path: '/',
     redirect: '/manage/workIndex'
