@@ -6,14 +6,15 @@
  * @Description: 用户相关
  */
 import router from '@/router'
-// import { login, getUserInfo, getUserMenu, logout } from '@/api/user.js'
-import { setStaticData, delStaticData, getStaticData, getCookie } from '@/utils/util'
-// import { mapMenusToRoutes } from '@/router/async-router'
+import { login, getUserInfo, getUserMenu, logout } from '@/api/common.js'
+import { setStaticData, delStaticData, getStaticData, setCookie, getCookie } from '@/utils/util'
+import { mapMenusToRoutes } from '@/router/async-router'
 // import menuList from './menuData'
 export default ({
   namespaced: true, // 命名空间
   state () {
     return {
+      Token: '',
       userInfo: {},
       userMenus: [],
       subMenus: [], // 储存子菜单
@@ -22,14 +23,14 @@ export default ({
     }
   },
   mutations: {
-    // changeToken (state, token) {
-    //   state.Token = token
-    // },
+    changeToken (state, token) {
+      state.Token = token
+    },
     changeUserInfo (state, userInfo) {
       state.userInfo = userInfo
     },
-    changeUserMenus (state, userMenus) {
-      const _routes = {} //mapMenusToRoutes(userMenus)
+    changeUserMenus (state, userMenus, root) {
+      const _routes = mapMenusToRoutes(userMenus)
       // 将routes => router.manage.children
       _routes.forEach((route) => {
         router.addRoute('manage', route)
@@ -57,7 +58,7 @@ export default ({
       setStaticData('hasSubMenus', state.hasSubMenus)
     },
     // 删除存储
-    deleteUserInfo (state) {
+    deleteUserInfo (state, logoutRes) {
       state.userMenus = null
       state.Token = null
       state.userInfo = null
@@ -72,58 +73,58 @@ export default ({
   },
   actions: {
     // 获得token
-    // async loginActions ({ commit, dispatch }, payload) {
-    //   const loginRes = await login(payload)
-    //   if (loginRes && typeof loginRes === 'string') { // 这里如果登录用户密码第二次会返回验证码信息，我们不需要
-    //     commit('changeToken', loginRes)
-    //     setCookie('Token', loginRes, 1)
-    //     dispatch('userInfoAction')
-    //   }
-    // },
+    async loginActions ({ commit, dispatch }, payload) {
+      const loginRes = await login(payload)
+      if (loginRes && typeof loginRes === 'string') { // 这里如果登录用户密码第二次会返回验证码信息，我们不需要
+        commit('changeToken', loginRes)
+        setCookie('Token', loginRes, 1)
+        dispatch('userInfoAction')
+      }
+    },
      // 请求用户信息
-    // async userInfoAction ({ commit, dispatch }, payload) {
-    //   const { data } = await getUserInfo()
-    //   const userInfo = data || {}
-    //   setStaticData('userInfo', userInfo)
-    //   commit('changeUserInfo', userInfo)
-    //   dispatch('getUserMenusActions')
-    // },
-    //  // 请求菜单
-    //  async getUserMenusActions ({ commit, dispatch }, isJumpStatus) {
-    //   commit('actionIsJump', isJumpStatus)
-    //   const getUserMenusRes = await getUserMenu()
-    //   let userMenus = getUserMenusRes?.data ?? []
-    //   userMenus = userMenus.sort((a, b) => a.sequence - b.sequence)
-    //   userMenus.forEach(item => {
-    //     if (item.children?.length) {
-    //       item.children = item.children.sort((a, b) => a.sequence - b.sequence)
-    //     }
-    //   })
-    //   setStaticData('userMenus', userMenus)
-    //   commit('changeUserMenus', userMenus)
-    //   // 设置默认进入后菜单状态
-    //   const defaultActiveValue = (typeof userMenus[0].children !== 'undefined' && userMenus[0].children.length > 0) ? userMenus[0].children[0].id : ''
-    //   setStaticData('defaultActiveValue', defaultActiveValue)
-    //   dispatch('changerCurrentValue', defaultActiveValue, { root: true })
-    // },
+    async userInfoAction ({ commit, dispatch }, payload) {
+      const { data } = await getUserInfo()
+      const userInfo = data || {}
+      setStaticData('userInfo', userInfo)
+      commit('changeUserInfo', userInfo)
+      dispatch('getUserMenusActions')
+    },
+     // 请求菜单
+     async getUserMenusActions ({ commit, dispatch }, isJumpStatus) {
+      commit('actionIsJump', isJumpStatus)
+      const getUserMenusRes = await getUserMenu()
+      let userMenus = getUserMenusRes?.data ?? []
+      userMenus = userMenus.sort((a, b) => a.sequence - b.sequence)
+      userMenus.forEach(item => {
+        if (item.children?.length) {
+          item.children = item.children.sort((a, b) => a.sequence - b.sequence)
+        }
+      })
+      setStaticData('userMenus', userMenus)
+      commit('changeUserMenus', userMenus)
+      // 设置默认进入后菜单状态
+      const defaultActiveValue = (typeof userMenus[0].children !== 'undefined' && userMenus[0].children.length > 0) ? userMenus[0].children[0].id : ''
+      setStaticData('defaultActiveValue', defaultActiveValue)
+      dispatch('changerCurrentValue', defaultActiveValue, { root: true })
+    },
 
-    // // 设置子菜单菜单
-    // changeSubMenusActions ({ commit }, payload) {
-    //   setStaticData('subMenus', payload)
-    //   commit('changeSubMenus', payload)
-    // },
+    // 设置子菜单菜单
+    changeSubMenusActions ({ commit }, payload) {
+      setStaticData('subMenus', payload)
+      commit('changeSubMenus', payload)
+    },
 
-    // // 退出登录
-    // async loginOut ({ commit }, payload) {
-    //   const logoutRes = await logout()
-    //   if (!logoutRes) {
-    //     commit('deleteUserInfo', logoutRes)
-    //     router.push('/login')
-    //   }
-    // },
+    // 退出登录
+    async loginOut ({ commit }, payload) {
+      const logoutRes = await logout()
+      if (!logoutRes) {
+        commit('deleteUserInfo', logoutRes)
+        router.push('/login')
+      }
+    },
 
     // 刷新后获取本地数据
-    updatStore ({ commit, dispatch }) {
+    updatStore ({ commit, dispatch, root }) {
       const Token = getCookie('Token')
       if (Token) {
         commit('changeToken', Token)

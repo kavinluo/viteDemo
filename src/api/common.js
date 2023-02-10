@@ -49,4 +49,17 @@ export function getUserInfo (parameter) {
   })
 }
 
+/**
+ * 退出登录
+ * @param {*} parameter 
+ * @returns 
+ */
+export function logout (parameter) {
+  return axios({
+    url: `${baseURL}/logout`,
+    method: 'DELETE',
+    parameter: parameter
+    // successTitle: ''
+  })
+}
 

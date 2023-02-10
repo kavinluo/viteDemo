@@ -22,7 +22,29 @@ p{
 .el-main.right-mian {
   padding: 0;
 }
-
+.el-dialog__header .header {
+  color: #373d41;
+  cursor: move;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+  border-bottom: 1px solid #ddd;
+}
+.el-dialog__headerbtn {
+  position: absolute;
+  top: 0 !important;
+  right: 0 !important;
+  width: 54px !important;
+  height: 50px !important;
+}
+.el-dialog__header {
+  margin-right: 0 !important;
+  padding:  0  !important;
+}
+.ivu-btn {
+  border-radius: 2px;
+}
 
 .el-aside{
   background: #fff;

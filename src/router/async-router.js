@@ -1,8 +1,8 @@
 /*
  * @Author: kevin
  * @Date: 2022-02-28 15:57:13
- * @LastEditors: kevin
- * @LastEditTime: 2022-07-05 17:21:10
+ * @LastEditors: kavinluo 821335797@qq.com
+ * @LastEditTime: 2023-02-08 16:04:52
  * @Description: 动态获取路由
  */
 
@@ -16,41 +16,43 @@
  * @returns {*}
  */
  export const mapMenusToRoutes = (routerMap, parent) => {
+  // debugger
   const routers = routerMap.map(item => {
     // eslint-disable-next-line no-unused-vars
-    const { title, isSee, hideChildren, target, icon, children, id, deppath } = item || {}
+    const {  id } = item || {}
     const currentRouter = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
-      path: item?.path || `${parent && parent.path || ''}/${item.name}`,
+      path:  '/manage/'+ item.modName, //`/manage${item?.modName || parent && parent.modName || ''}/${item.modName}`,
       // 路由名称，建议唯一
-      name: item.name || item.key || '',
+      name: item.modName || item.key || '',
       // 该路由对应页面的 组件 :方案1
       // component: constantRouterComponents[item.component || item.key],
       // 该路由对应页面的 组件 :方案2 (动态加载)
-      component: () => import(`@/views/${item.component}`),
+      // component: () => import(`@/views/${item.modName}/${item.modName}.vue`),
       sequence: item.sequence,
       // meta: 页面标题, 菜单图标,
       meta: {
         id: id,
-        title: title,
-        icon: icon || undefined,
-        target: target
+        title: item.name,
+        icon: item.icon || undefined,
+        // target: target
         // link: link
       },
+      title: item.name,
       parentId: item.parentId,
-      id: id,
-      depath: deppath,
+      id,
+      // depth: deppath,
       hidden: false, // 是否可见
-      redirect: children && item.children?.length ? item.children[0].path : ''
+      redirect: item.children && item.children?.length ? item.children[0].path : ''
     }
     // 是否设置了隐藏菜单 1 可见 0 不可见
-    if (isSee === 0) {
-      currentRouter.hidden = true
-    }
+    // if (isSee === 0) {
+    //   currentRouter.hidden = true
+    // }
     // 是否设置了隐藏子菜单
-    if (hideChildren) {
-      currentRouter.hideChildrenInMenu = true
-    }
+    // if (hideChildren) {
+    //   currentRouter.hideChildrenInMenu = true
+    // }
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     if (!currentRouter.path.startsWith('http')) {
       currentRouter.path = currentRouter.path.replace('//', '/')

@@ -1,3 +1,10 @@
+<!--
+ * @Author: kavinluo
+ * @Date: 2023-02-02 15:06:08
+ * @LastEditors: kavinluo
+ * @LastEditTime: 2023-02-09 17:30:28
+ * @Description: 无
+-->
 <template>
   <div :id="ggg.id" ref="headerId" class="header" >{{ggg.title}}</div>
 </template>
@@ -26,7 +33,7 @@
 
     mounted(){
       let headerId = this.$refs.headerId;
-      let par = $(headerId).parents(".ivu-modal-content")
+      let par = $(headerId).parents(".el-dialog")
       this.startDrag(headerId,par[0]);
 
     },

@@ -57,13 +57,12 @@
       </el-row>
     </div>
   </div>
-  <Modal close-on-click-modal="false"
+  <!-- <Modal close-on-click-modal="false"
            height="200"
            cancel-text=""
            v-model="reportModal"
            class-name="vertical-center-modal"
            :width="500">
-           <!-- <slot name="header" :content="{title:'fghfgh'}"></slot> -->
            <template #header>
             <modal-header
                     :content="{title:'找回密码'}"></modal-header>
@@ -73,10 +72,21 @@
         <p class="remove"
            align="center">请联系系统管理员重置密码！</p>
       </div>
-        <template #footer>
-          <!-- <div></div> -->
-        </template>
-    </Modal>
+        <template #footer>        </template>
+    </Modal> -->
+    <el-dialog height="200" cancel-text="" v-model="reportModal" :width="500">
+      <template #header>
+      <modal-header
+              :content="{title:'找回密码'}"></modal-header>
+      </template>
+      <div>
+        <p class="remove"
+           align="center">请联系系统管理员重置密码！</p>
+      </div>
+    <template #footer>
+      
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -167,13 +177,20 @@ function openVerificationModel() {
 }
 
 function submitForm(formEl) {
-  formEl?.validate((valid) => {
-    if (valid) {
-      openVerificationModel()
-    } else {
-      console.log('error submit!')
-      return false
-    }
+  // formEl?.validate((valid) => {
+  //   if (valid) {
+  //     openVerificationModel()
+  //   } else {
+  //     console.log('error submit!')
+  //     return false
+  //   }
+  // })
+
+  store.dispatch('loginActions',{
+    username: 'admin',
+    password: '666666',
+    reCode: '',
+    key: ''
   })
 }
 async function handleSuccess() {

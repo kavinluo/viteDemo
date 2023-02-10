@@ -1,19 +1,18 @@
 /*
  * @Author: kevin
  * @Date: 2023-02-2 13:55:23
- * @LastEditors: kavinluo
- * @LastEditTime: 2023-02-09 18:23:31
+ * @LastEditors: kavinluo 821335797@qq.com
+ * @LastEditTime: 2023-02-08 12:57:17
  * @Description: Do not edit
  */
 
 import { createStore, useStore as useVuexStore } from 'vuex'
 // import user from './modules/user'
-import { getEnvs, login, getMenuTree, getUserInfo, logout } from '@/api/common.js'
+import { getEnvs, login, getMenuTree, getUserInfo } from '@/api/common.js'
 // import { login } from '@/api/login.js'
 import router from '@/router'
 import { setStaticData, setCookie, delStaticData, getStaticData, getCookie } from '@/utils/util'
-
-import { mapMenusToRoutes } from '@/router/async-router'
+// import { mapMenusToRoutes } from '@/router/async-router'
 const store = createStore({
   namespaced: true, // 命名空间
   modules: {
@@ -25,6 +24,10 @@ const store = createStore({
       Token: '',
       indexUrl: '',
       routerPath: {},
+      pagination: { // 分页信息
+        pageSize: 10,
+        curPage: 1
+      },
 
       isWorkIndex: true, // 是否考务管理首页
       useInfo: null,
@@ -39,11 +42,8 @@ const store = createStore({
       tableData: [], // 表格数据
       total: 0, // 总条数
       defaultActiveValue: null, // 菜单默认选中的值
-      breadcrumbs: [], // 面包屑
-      pagination: { // 分页信息
-        pageSize: 10,
-        curPage: 1
-      },
+      breadcrumbs: [] // 面包屑
+
     }
   },
   mutations: {
@@ -57,32 +57,31 @@ const store = createStore({
       state.Token = token
     },
     changeMenu (state, data) {
-      // state.menuData = data
+      state.menuData = data
+
       state.isWorkIndex = data.length && data[0].name === 'examinationManage'
 
       // router.push('/manage')
-      const _routes = mapMenusToRoutes(data)
+      // const _routes = mapMenusToRoutes(data)
 
       // _routes.forEach((route) => {
       //   router.addRoute('manage', route)
       // })
-      state.menuData = _routes
-      setStaticData('menuData', _routes)
-      console.log('_routes', _routes)
-      // 刷新页面时先从本地获取
-      const hasSubMenus = getStaticData('hasSubMenus')
+      // state.menuData = _routes
+      // // 刷新页面时先从本地获取
+      // const hasSubMenus = getStaticData('hasSubMenus')
   
-      const subMenus = getStaticData('subMenus')
-      state.subMenus = subMenus || _routes[0].children
-      state.hasSubMenus = hasSubMenus || (state.subMenus?.length > 0)
-      if (state.isJump) {
-        if (state.hasSubMenus) {
-          // router.push('/manage')
-          // router.push(state.menuData[0].path)
-        } else {
-          router.push(data[0]?.path || '/manage')
-        }
-      }
+      // const subMenus = getStaticData('subMenus')
+      // state.subMenus = subMenus || _routes[0].children
+      // state.hasSubMenus = hasSubMenus || (state.subMenus?.length > 0)
+      // if (state.isJump) {
+      //   if (state.hasSubMenus) {
+      //     router.push('/manage')
+      //     // router.push(state.menuData[0].path)
+      //   } else {
+      //     router.push(data[0]?.path || '/manage')
+      //   }
+      // }
     },
     changeSubMenus (state, subMenus) {
       state.subMenus = subMenus
@@ -90,9 +89,6 @@ const store = createStore({
       // 切换时候存储菜单状态
       setStaticData('subMenus', state.subMenus)
       setStaticData('hasSubMenus', state.hasSubMenus)
-    },
-    changeSubMenuStatus (state, type) {
-      state.hasSubMenus = type
     },
 
     changeHeaderStatus (state, type) {
@@ -122,7 +118,7 @@ const store = createStore({
        * @param pathObj {"/index/manage":"/index/manage",.....}
    */
 
-  setRouterPath (state, pathObj) {
+  changerRouterPath (state, pathObj) {
     state.routerPath = pathObj;
   },
     
@@ -141,27 +137,10 @@ const store = createStore({
     setTableData (state, data) {
       state.tableData = data?.list ?? (Array.isArray(data) ? data : [])
       state.total = data?.total ?? 0
-    },
-
-    // 删除存储
-    deleteUserInfo (state, logoutRes) {
-      state.menuData = null
-      state.Token = null
-      state.userInfo = null
-      state.subMenus = []
-      delStaticData('menuData')
-      delStaticData('useInfo')
-      delStaticData('subMenus')
-      delStaticData('defaultActiveValue')
-      localStorage.clear()
-    },
+    }
   },
   actions: {
-
-    headerAction ({ commit }, payload) {
-      commit('changeHeaderStatus', payload)
-    },
-
+  
      /**
      * // 获取envs并设置 
      * @param {*} param0 
@@ -188,7 +167,7 @@ const store = createStore({
 
     async loginActions ({ commit, dispatch }, payload) {
       const loginRes = await login(payload)
-      if (loginRes && loginRes.data) { 
+      if (loginRes && loginRes.data) { // 这里如果登录用户密码第二次会返回验证码信息，我们不需要
         commit('changeToken', loginRes.data)
         setCookie('Token', loginRes.data, 1);
         setStaticData('Token', loginRes.data)
@@ -219,9 +198,9 @@ const store = createStore({
      */
     async getMenu ({ commit, dispatch }, payload) {
       const menuData = await getMenuTree(payload)
+      console.log('menuData.data', menuData.data)
       if (menuData && menuData.data) { // 
-        dispatch('setMeuseData', menuData.data[0].children)
-        router.push('/manage')
+        dispatch('setMeuseData', menuData)
       }
 
     },
@@ -231,19 +210,88 @@ const store = createStore({
      * @param {*} param0 
      * @param {*} payload 
      */ 
-    setMeuseData({ commit, dispatch },data = []) {
-      // data = data.sort((a, b) => a.sequence - b.sequence)
-      data.forEach(item => {
-        if (item.children?.length) {
-          item.children = item.children.sort((a, b) => a.sequence - b.sequence)
+    // setMeuseData({ commit, dispatch },data = []) {
+    //   // data = data.sort((a, b) => a.sequence - b.sequence)
+    //   data.forEach(item => {
+    //     if (item.children?.length) {
+    //       item.children = item.children.sort((a, b) => a.sequence - b.sequence)
+    //     }
+    //   })
+    //   setStaticData('menuData', data)
+    //   commit('changeMenu', data)
+    //   // 设置默认进入后菜单状态
+    //   // const defaultActiveValue = (typeof data[0].children !== 'undefined' && data[0].children.length > 0) ? data[0].children[0].id : ''
+    //   // setStaticData('defaultActiveValue', defaultActiveValue)
+    //   // dispatch('changerCurrentValue', defaultActiveValue, { root: true })
+    // },
+    setMeuseData({commit, dispatch }, responseData) {
+      console.log('responseData', responseData)
+      let data = responseData.data || [];
+      if (data.length > 0) {
+        data = data[0].children;
+      }
+      console.log('data', data)
+      //将设置完成的structureIndex赋值给 navs
+      // let infos = this.$store.getters.getUserInfo;
+      let index = ''
+      // if (infos.userType == 'STU') {
+      //   index = '/student'
+      // } else {
+        index = '/manage'
+      // }
+      if (data[0].children && data[0].children.length) {
+        let myData = data[0].children || [];
+        for (var i = 0; i < myData.length;) {
+          if (typeof myData[i].children != 'undefined') {
+            index += '/' + myData[i]['modName'];
+            myData = myData[i].children;
+          } else {
+            index += '/' + myData[i]['modName'];
+            break;
+          }
         }
-      })
-      // setStaticData('menuData', data)
-      commit('changeMenu', data)
-      // 设置默认进入后菜单状态
-      // const defaultActiveValue = (typeof data[0].children !== 'undefined' && data[0].children.length > 0) ? data[0].children[0].id : ''
-      // setStaticData('defaultActiveValue', defaultActiveValue)
-      // dispatch('changerCurrentValue', defaultActiveValue, { root: true })
+      } else {
+        index += '/' + data[0].modName
+      }
+      dispatch('setRouterPath',data, true);
+      // this.$store.commit('setIndexUrl', index);
+      // commit('changerRouterPath', this.routerPath);
+      // this.$router.push(index);
+      // router.push('/manage')
+    },
+    
+     /**
+     * 获取所有后台配置的路由地址
+     * @param data
+     * @param first
+     * @param parItem
+     */
+     setRouterPath({ commit, dispatch }, data, first, parItem) {
+      for (var i = 0, item; i < data.length; i++) {
+        item = data[i];
+        if (!item.children || !item.children.length) { //
+          item['path'] = '/manage/' + item['modName'];
+        }
+        if (first && !(!item.children || !item.children.length)) {
+          item['path'] = '/manage';
+          item['level'] = 1;
+        } else if (parItem) {
+          if (parItem['path'] == -1) {
+            item['path'] = parItem['modName'] + '/' + item.modName;
+          } else {
+            item['path'] = parItem['path'] + '/' + item.modName;
+          }
+          item['level'] = parItem['level'] + 1;
+        }
+       
+        // this.routerPath[item['path']] = item['path'];
+        commit('changerRouterPath', {[item['path']]: item['path']})
+        if (typeof item.children != 'undefined' && item.children.length > 0) {
+          dispatch('setRouterPath', item.children, false, item);
+        }
+        commit('changeMenu', data)
+        setStaticData('menuData', data)
+      }
     },
 
     /**
@@ -251,9 +299,8 @@ const store = createStore({
      * @param {*} param0 
      * @param {*} payload 
      */
-    async loginOut ({ commit }) {
-       const logoutRes = await logout()
-       console.log('logoutRes', logoutRes)
+    async loginOut ({ commit }, payload) {
+       const logoutRes = ''//await logout()
       if (!logoutRes) {
         commit('deleteUserInfo', logoutRes)
         router.push('/login')
@@ -301,10 +348,6 @@ const store = createStore({
       const Token = getCookie('Token')
       if (Token) {
         commit('changeToken', Token)
-       const userMenus = getStaticData('menuData')
-       if (userMenus) {
-        dispatch('setMeuseData', userMenus)
-      }
         dispatch('userInfoActions') // 获取个人信息
         dispatch('getMenu') // 获取菜单
       }
@@ -322,16 +365,12 @@ const store = createStore({
       // if (defaultActiveValue) {
       //   dispatch('changerCurrentValue', defaultActiveValue, { root: true })
       // }
-    },
-    
+    }
 
   },
   getters: {
     useInfo (state) {
       return `请叫我 ${state.name}`
-    },
-    headerMenuStatus () {
-      
     }
   },
   getIndexUrl: state => {

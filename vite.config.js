@@ -36,7 +36,8 @@ export default defineConfig({
     /* CSS 预处理器 */
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/assets/style/index.scss";@import "@/assets/style/manage_v1.0/daily.scss";'
+        // @use "@/assets/style/manage_v1.0/daily.scss";
+        additionalData: '@use "@/assets/style/index.scss";@use "@/assets/style/element/element.scss";@use "element-plus/theme-chalk/src/index.scss" as *;'
       }
     }
   },

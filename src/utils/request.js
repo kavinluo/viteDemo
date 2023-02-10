@@ -1,8 +1,8 @@
 /*
  * @Author: kevin
  * @Date: 2022-02-21 13:45:02
- * @LastEditors: kevin
- * @LastEditTime: 2022-04-12 18:03:11
+ * @LastEditors: kavinluo
+ * @LastEditTime: 2023-02-09 18:19:58
  * @Description: Do not edit
  */
 
@@ -128,10 +128,10 @@ function errorCode(response) {
 }
 
 
-// function setAjaxQuestHeader(key, v) {
-//   ajaxconfig["headers"][key] = v;
-//   service = axios.create(ajaxconfig);
-// }
+function setAjaxQuestHeader(key, v) {
+  ajaxconfig["headers"][key] = v;
+  // service = axios.create(ajaxconfig);
+}
 
 function setAjaxRequer(options) {
   //必须基本设置请求参数
@@ -167,7 +167,9 @@ function setAjaxRequer(options) {
       potsData.timeStamp = timeStamp;
     }
     if (_.isObject(potsData)) {
+      debugger
       if (typeof isParseStringJSON != "undefined") {
+        options.headers['Content-Type'] = 'application/json'
         // setAjaxQuestHeader("Content-Type", "application/json");
         if (isSecurity) {
           let signJsonStr = "&timeStamp=" + timeStamp;

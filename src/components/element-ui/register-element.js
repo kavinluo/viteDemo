@@ -1,8 +1,8 @@
 /*
  * @Author: kevin
  * @Date: 2022-02-28 09:09:17
- * @LastEditors: kevin
- * @LastEditTime: 2022-05-11 15:28:51
+ * @LastEditors: kavinluo
+ * @LastEditTime: 2023-02-09 17:18:46
  * @Description: Do not edit
  */
 import 'element-plus/theme-chalk/base.css'
@@ -50,7 +50,7 @@ import {
   ElCollapseItem,
   ElTransfer,
   ElCalendar,
-  ElTag
+  ElTag,
 } from 'element-plus'
 
 // icon引入
@@ -79,7 +79,9 @@ import {
   Reading,
   Coin,
   CirclePlusFilled,
-  CloseBold
+  CloseBold,
+  Compass,
+  DeleteFilled
 } from '@element-plus/icons-vue'
 
 const components = [
@@ -146,7 +148,9 @@ const components = [
   Coin,
   ElTag,
   CirclePlusFilled,
-  CloseBold
+  CloseBold,
+  Compass,
+  DeleteFilled
 ]
 const plugins = [
   ElInfiniteScroll,
